@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/body.css"/>
+    <link rel="stylesheet" href="style/sidebar.css"/>
+    <link rel="stylesheet" href="style/mainForm.css"/>
+    <link rel="stylesheet" href="style/button.css"/>
+    <link rel="stylesheet" href="style/gridTable.css"/>
+    <link rel="stylesheet" href="style/filterBar.css"/>
+    <link rel="stylesheet" href="style/modalForm.css"/>
+    <link rel="stylesheet" href="style/tabs.css"/>
+    <link rel="stylesheet" href="style/popup.css"/>
+</head>
+<body hidden>
+<div class="header">
+    AS Name
+</div>
+<div class="layout">
+    <div class="sidebar">
+        <ul class="firstUL"
+        ">
+        <li id="logout">Выход</li>
+        <li id="home" class="item-mode sidebar-li-checked">Домашняя</li>
+        <li id="requests" class="item-mode">Заявки</li>
+        <li class="item-group-mode sidebar-li-symbol-close">Справочники
+            <ul class="sidebar-ul-nested">
+                <li id="clients" class="item-mode">Клиенты</li>
+            </ul>
+        </li>
+        <li class="item-group-mode sidebar-li-symbol-close">Отчеты
+            <ul class="sidebar-ul-nested">
+                <li id="myReports" class="item-mode">Мои отчеты</li>
+                <li id="REPORT_REQUESTS_DETAILED" class="item-mode">Отчет по заявкам (детальный)</li>
+                <li id="REPORT_REQUESTS_CONSOLIDATED" class="item-mode">Отчет по заявкам (сводный)</li>
+            </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="main-container-content">
+    </div>
+    <div class="footer">
+        EAA © (2020)
+    </div>
+    <script src="script/body.js"></script>
+    <script src="script/system.js"></script>
+    <script src="script/form.js"></script>
+    <script src="script/gridTable.js"></script>
+    <script src="script/confirmForm.js"></script>
+    <script src="script/errorForm.js"></script>
+    <script src="script/popup.js"></script>
+</body>
+</html>
