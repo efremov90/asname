@@ -64,13 +64,14 @@ public class SecurityFilter implements Filter {
                 logger.info("isActiveSession=true");
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                logger.info("isActiveSession=false");
+                /*logger.info("isActiveSession=false");
                 //response.sendRedirect(request.getContextPath()+"/login");
                 RequestDispatcher dispatcher = request.getServletContext()
                         .getRequestDispatcher("/view/login.html");
                 response.setStatus(403);
                 dispatcher.forward(request, response);
-                return;
+                return;*/
+                filterChain.doFilter(servletRequest, servletResponse);
             }
         } catch (Exception e) {
             /*logger.throwing(SecurityFilter.class.getName(),

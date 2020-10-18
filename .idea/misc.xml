@@ -3,6 +3,9 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/webapp" />
+    <file type="web" url="file://$PROJECT_DIR$/ws" />
+    <file type="web" url="file://$PROJECT_DIR$/ws1" />
+    <file type="web" url="file://$PROJECT_DIR$/wsspring" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -12,7 +15,11 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/integration/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/pom.xml" />
         <option value="$PROJECT_DIR$/webservice/untitled/pom.xml" />
+        <option value="$PROJECT_DIR$/ws2/pom.xml" />
+        <option value="$PROJECT_DIR$/wsspring/pom.xml" />
       </set>
     </option>
   </component>

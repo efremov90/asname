@@ -1,6 +1,7 @@
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\CloseRequestTaskService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\AuditOper.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\ClientDAO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws1\DiffRqType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ReportRequestsConsolidatedDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\job\StartJob.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\ReportRequestsConsolidatedService.java
@@ -10,12 +11,14 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\Task.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\ConfigureService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\RequestService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\RequestStatusHistoryService.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws1\AddRqType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\ConfigureDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\ClientDopoffice.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\AccountSession.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetRequestResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\ReportStatusType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\RequestDTO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\ObjectFactory.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\EditClientServlet.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\requests\CreateRequestRqType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\GetReportsServlet.java
@@ -27,6 +30,7 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\Audit.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\GetRequestServlet.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GenerateReportResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetClientResponseDTO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\wsspring\StubHumanResourceService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\CheckReportRequestDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ClientATMDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\FormatReportType.java
@@ -64,10 +68,13 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\requests\CancelRe
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\SecuritySevice.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ErrorResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\RequestStatusHistory.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\wsspring\HumanResourceService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\RequestTaskService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\PermissionDAO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws1\CalWebServiceImpl.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\Report.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\HomeServlet.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\ResultType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\RequestStatusType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\ReportTaskService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\CreateClientRequestDTO.java
@@ -85,9 +92,13 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\Permissions
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\RequestAuditsDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ReportRequestsDetailedDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\Configure.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\AddRqType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\AuditOperType.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\package-info.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\ATMTypeType.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\wsspring\HolidayEndpoint.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetClientRequestDTO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\DiffRqType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\AuditOperService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\EditClientRequestDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ResultDTO.java
@@ -97,10 +108,13 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\ClientATMDAO.
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\RequestDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\AccountSessionDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetClientsResponseDTO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\CalWebService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ErrorDTO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws1\CalWebService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dbConnection\MySQLConnection.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\AuthHeader.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\AuditDTO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\CalWebServiceImpl.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\requests\ObjectFactory.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\ErrorDTOService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\ReportTasksDAO.java
@@ -114,6 +128,7 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\CreateReq
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ResultResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\GenerateReportServlet.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\ClientDopofficeDAO.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws1\ResultType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\ReportDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\CreateClientServlet.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetClientsRequestDTO.java
@@ -123,5 +138,6 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\RequestStatus
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\UserAccountDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetPermissionsResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\CancelRequestServlet.java
+C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\CalWebService_Service.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetRequestStatusHistoryResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\GetRequestHistoryServlet.java
