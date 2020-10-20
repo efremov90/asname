@@ -30,7 +30,6 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\Audit.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\servlet\GetRequestServlet.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GenerateReportResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetClientResponseDTO.java
-C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\wsspring\StubHumanResourceService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\CheckReportRequestDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ClientATMDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\FormatReportType.java
@@ -68,7 +67,6 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\requests\CancelRe
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\SecuritySevice.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\ErrorResponseDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\RequestStatusHistory.java
-C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\wsspring\HumanResourceService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\RequestTaskService.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dao\PermissionDAO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws1\CalWebServiceImpl.java
@@ -96,7 +94,6 @@ C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\Ad
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\AuditOperType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\package-info.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\model\ATMTypeType.java
-C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\wsspring\HolidayEndpoint.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\dto\GetClientRequestDTO.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\integration\ws\DiffRqType.java
 C:\Users\NEO\IdeaProjects\asname\core\src\main\java\org\asname\service\AuditOperService.java

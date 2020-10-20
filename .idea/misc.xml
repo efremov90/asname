@@ -4,7 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/webapp" />
     <file type="web" url="file://$PROJECT_DIR$/ws" />
-    <file type="web" url="file://$PROJECT_DIR$/ws1" />
+    <file type="web" url="file://$PROJECT_DIR$/wsspring" />
     <file type="web" url="file://$PROJECT_DIR$/wsspring" />
   </component>
   <component name="MavenProjectsManager">

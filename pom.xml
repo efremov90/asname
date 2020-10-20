@@ -19,7 +19,7 @@
         <module>core</module>
         <module>webapp</module>
         <module>ws</module>
-        <module>ws1</module>
+        <module>wsspring</module>
     </modules>
 
     <dependencies>
@@ -132,7 +132,7 @@
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
-            <version>1.1</version>
+            <version>1.2.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api -->
@@ -171,17 +171,22 @@
             <artifactId>jaxws-tools</artifactId>
             <version>2.3.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <version>2.0.6.RELEASE</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
+        <!--        <dependency>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                    <version>2.11.0</version>
+                </dependency>-->
         <dependency>
             <groupId>wsdl4j</groupId>
             <artifactId>wsdl4j</artifactId>
             <version>1.6.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by EAA (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns:hcl="http://anil.hcl.com/calWebService/schemas"
+		   targetNamespace="http://anil.hcl.com/calWebService/schemas">
+	<xs:element name="AddRequest" type="hcl:AddRqType"/>
+	<xs:element name="AddResponse" type="hcl:ResultType"/>
+	<xs:element name="DiffRequest" type="hcl:DiffRqType"/>
+	<xs:element name="DiffResponse" type="hcl:ResultType"/>
+	<xs:complexType name="ResultType">
+		<xs:sequence>
+			<xs:element name="Result" type="hcl:Integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddRqType">
+		<xs:sequence>
+			<xs:element name="Param1" type="hcl:Integer"/>
+			<xs:element name="Param2" type="hcl:Integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DiffRqType">
+		<xs:sequence>
+			<xs:element name="Param1" type="hcl:Integer"/>
+			<xs:element name="Param2" type="hcl:Integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Integer">
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="wsspring:war exploded">
+    <output-path>$PROJECT_DIR$/wsspring/target/wsspring</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="wsspring/web/Web" />
+    </root>
+  </artifact>
+</component>

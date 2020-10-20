@@ -19,8 +19,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
+        <module name="wsspring" />
         <module name="ws" />
-        <module name="ws1" />
         <module name="webapp" />
       </profile>
     </annotationProcessing>
