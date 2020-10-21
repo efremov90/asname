@@ -7,6 +7,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 @Endpoint
 public class CallWebServiceEndpoint {
 
@@ -20,7 +22,7 @@ public class CallWebServiceEndpoint {
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "AddRequest")
-    public @ResponsePayload ResultType
+    public @ResponsePayload AddRsType
     add(@RequestPayload AddRqType addRequest) throws Exception {
         return callWebService.add(addRequest);
     }
