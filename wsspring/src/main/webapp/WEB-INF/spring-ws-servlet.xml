@@ -10,6 +10,16 @@
 
     <sws:annotation-driven/>
 
+    <sws:interceptors>
+        <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+        <bean id="validatingInterceptor"
+              class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+            <property name="schema" value="/WEB-INF/CalWebService.xsd"/>
+            <property name="validateRequest" value="true"/>
+            <property name="validateResponse" value="true"/>
+        </bean>
+    </sws:interceptors>
+
     <sws:dynamic-wsdl id="CalWebService"
                       portTypeName="CalWebService"
                       locationUri="/calWebService/"
