@@ -11,13 +11,22 @@ import org.asname.service.ClientATMService;
 import org.asname.service.ReportRequestsDetailedService;
 import org.asname.service.ReportService;
 import org.asname.service.RequestService;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
@@ -98,5 +107,42 @@ public class DemoTest {
         unmarshaller.setSchema(schema);
         cancelRequestRqRead = (CancelRequestRqType) unmarshaller.unmarshal(new ByteArrayInputStream(str.getBytes()));
         System.out.println("");*/
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        StringBuilder xmlStringBuilder = new StringBuilder();
+/*        String str = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://anil.hcl.com/calWebService/schemas\">\n" +
+                "   <soapenv:Header/>\n" +
+                "   <soapenv:Body>\n" +
+                "      <sch:AddRequest>\n" +
+                "         <Param1>5</Param1>\n" +
+                "         <Param2>-3</Param2>\n" +
+                "      </sch:AddRequest>\n" +
+                "   </soapenv:Body>\n" +
+                "</soapenv:Envelope>";*/
+        String str = "<?xml version=\"1.0\"?><class1><class2>1</class2></class1>";
+        System.out.println(str);
+        xmlStringBuilder.append(str);
+        ByteArrayInputStream input = new ByteArrayInputStream(
+                xmlStringBuilder.toString().getBytes("UTF-8"));
+        Document doc = builder.parse(input);
+        XPath xPath =  XPathFactory.newInstance().newXPath();
+        Node node = (Node) xPath.compile("/class1").evaluate(doc,XPathConstants.NODE);
+        System.out.println("body:"+node.getOwnerDocument().getLocalName());
+
+   /*     DocumentBuilderFactory factory =
+                DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        StringBuilder xmlStringBuilder = new StringBuilder();
+        xmlStringBuilder.append("<?xml version=\"1.0\"?><class1>1</class1>");
+        ByteArrayInputStream input = new ByteArrayInputStream(
+                xmlStringBuilder.toString().getBytes("UTF-8"));
+        Document doc = builder.parse(input);
+
+        Element root = doc.getDocumentElement();
+
+        System.out.println(root.getFirstChild());*/
+
     }
 }
