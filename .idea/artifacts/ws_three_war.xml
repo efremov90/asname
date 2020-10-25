@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ws-three:war">
+    <output-path>$PROJECT_DIR$/ws-spring/ws-three/target</output-path>
+    <root id="archive" name="ws-three_war.war">
+      <element id="artifact" artifact-name="ws-three:war exploded" />
+    </root>
+  </artifact>
+</component>

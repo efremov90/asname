@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class AuditOperService {
 
     private Connection conn;
-    private Logger logger = Logger.getLogger(AuditDAO.class.getName());
+    private Logger logger = Logger.getLogger(AuditOperService.class.getName());
 
     public AuditOperService() throws ClassNotFoundException {
         logger.info("start");

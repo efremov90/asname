@@ -1,8 +1,12 @@
 # Default ignored files
 /workspace.xml
 
-*.class
-
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+/asname/out
+/asname/webapp/target
+/asname/ws/target
+/asname/wsspring/target
+*.class

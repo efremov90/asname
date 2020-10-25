@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class ConfigureService {
 
-    private static Logger logger = Logger.getLogger(UserAccountDAO.class.getName());
+    private static Logger logger = Logger.getLogger(ConfigureService.class.getName());
     private static Map<String, String> configures;
 
     public static String getConfigureValueByName(String name) throws SQLException {

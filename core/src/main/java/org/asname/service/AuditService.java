@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class AuditService {
 
     private Connection conn;
-    private Logger logger = Logger.getLogger(ClientATMService.class.getName());
+    private Logger logger = Logger.getLogger(AuditService.class.getName());
 
     public AuditService() {
         logger.info("start");

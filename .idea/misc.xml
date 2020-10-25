@@ -4,8 +4,10 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/webapp" />
     <file type="web" url="file://$PROJECT_DIR$/ws" />
+    <file type="web" url="file://$PROJECT_DIR$/ws-one" />
+    <file type="web" url="file://$PROJECT_DIR$/ws-spring" />
     <file type="web" url="file://$PROJECT_DIR$/wsspring" />
-    <file type="web" url="file://$PROJECT_DIR$/wsspring" />
+    <file type="web" url="file://$PROJECT_DIR$/wsspringnew" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -18,8 +20,15 @@
         <option value="$PROJECT_DIR$/integration/pom.xml" />
         <option value="$PROJECT_DIR$/spring/pom.xml" />
         <option value="$PROJECT_DIR$/webservice/untitled/pom.xml" />
+        <option value="$PROJECT_DIR$/ws-one/pom.xml" />
+        <option value="$PROJECT_DIR$/ws-spring/pom.xml" />
+        <option value="$PROJECT_DIR$/ws-spring/ws-three/pom.xml" />
         <option value="$PROJECT_DIR$/ws2/pom.xml" />
+        <option value="$PROJECT_DIR$/wspringnew/pom.xml" />
         <option value="$PROJECT_DIR$/wsspring/pom.xml" />
+        <option value="$PROJECT_DIR$/wsspringnew/pom.xml" />
+        <option value="$PROJECT_DIR$/wsspringnew/test1/pom.xml" />
+        <option value="$PROJECT_DIR$/wsspringnew/untitled/pom.xml" />
       </set>
     </option>
   </component>

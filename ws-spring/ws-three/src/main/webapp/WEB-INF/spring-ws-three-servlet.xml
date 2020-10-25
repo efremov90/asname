@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sws="http://www.springframework.org/schema/web-services"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="org.asname.integration.wsspring.wsthree"/>
+
+    <sws:annotation-driven/>
+
+    <sws:interceptors>
+        <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+        <!--        <bean class="org.springframework.ws.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>-->
+        <bean id="validatingInterceptor"
+              class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+            <property name="schema" value="/WEB-INF/Requests.xsd"/>
+            <property name="validateRequest" value="true"/>
+            <property name="validateResponse" value="true"/>
+        </bean>
+        <bean class="org.asname.integration.wsspring.wsthree.Interceptor"/>
+    </sws:interceptors>
+
+    <sws:dynamic-wsdl id="RequestService"
+                      portTypeName="RequestService"
+                      requestSuffix="Rq"
+                      responseSuffix="Rs"
+                      locationUri="/"
+                      targetNamespace="http://org.asname.requests/wsdl">
+        <sws:xsd location="/WEB-INF/Requests.xsd"/>
+    </sws:dynamic-wsdl>
+
+</beans>
