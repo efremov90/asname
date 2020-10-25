@@ -200,6 +200,10 @@ public class RequestService {
 
         Request request = new RequestService().getRequestByUUID(requestUUID);
 
+        if (getRequestByUUID(requestUUID).getRequestStatus() != CREATED)
+            throw new Exception(String.format("Заявка в статусе %s.",
+                    request.getRequestStatus().getDescription()));
+
         conn.setAutoCommit(false);
         request.setRequestStatus(CANCELED);
         request.setLastDateTimeChangeRequestStatus(new java.util.Date());

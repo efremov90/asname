@@ -1,7 +1,10 @@
 
 package org.asname.integration.wsspring.wsone;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -14,7 +17,15 @@ import javax.xml.bind.annotation.*;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Result" type="{http://anil.hcl.com/calWebService/schemas}Integer"/>
+ *         &lt;element name="Code" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Description" minOccurs="0">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;minLength value="1"/>
+ *               &lt;maxLength value="255"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -24,28 +35,55 @@ import javax.xml.bind.annotation.*;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ResultType", namespace = "http://anil.hcl.com/calWebService/schemas", propOrder = {
-    "result"
+@XmlType(name = "ResultType", namespace = "http://org.asname.requests/schemas", propOrder = {
+    "code",
+    "description"
 })
 public class ResultType {
 
-    @XmlElement(name = "Result")
-    protected int result;
+    @XmlElement(name = "Code")
+    protected int code;
+    @XmlElement(name = "Description")
+    protected String description;
 
     /**
-     * Gets the value of the result property.
+     * Gets the value of the code property.
      * 
      */
-    public int getResult() {
-        return result;
+    public int getCode() {
+        return code;
     }
 
     /**
-     * Sets the value of the result property.
+     * Sets the value of the code property.
      * 
      */
-    public void setResult(int value) {
-        this.result = value;
+    public void setCode(int value) {
+        this.code = value;
+    }
+
+    /**
+     * Gets the value of the description property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the value of the description property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescription(String value) {
+        this.description = value;
     }
 
 }

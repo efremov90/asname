@@ -18,12 +18,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ws-two" />
-        <module name="ws" />
         <module name="core" />
+        <module name="ws" />
         <module name="ws-one" />
         <module name="webapp" />
-        <module name="ws-three" />
+        <module name="ws-two" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +31,7 @@
       <module name="test1" target="1.8" />
       <module name="untitled" target="1.8" />
       <module name="ws-spring" target="1.8" />
+      <module name="ws-three" target="1.8" />
       <module name="wspringnew" target="1.8" />
       <module name="wsspring" target="1.8" />
       <module name="wsspringnew" target="1.8" />

@@ -34,8 +34,10 @@ public class WSLogDAO {
         st.setString(3, wsLog.getResponse());
         st.setString(4, wsLog.getMethod());
         st.setString(5, wsLog.getStatus().name());
-        st.setString(6, new Timestamp(wsLog.getStartDatetime().getTime()).toString());
-        st.setString(7, new Timestamp(wsLog.getEndDatetime().getTime()).toString());
+        st.setString(6, wsLog.getStartDatetime() != null ?
+                new Timestamp(wsLog.getStartDatetime().getTime()).toString() : null);
+        st.setString(7, wsLog.getEndDatetime() != null ?
+                new Timestamp(wsLog.getEndDatetime().getTime()).toString() : null);
         st.executeUpdate();
 
         result = MySQLConnection.getLastInsertId();

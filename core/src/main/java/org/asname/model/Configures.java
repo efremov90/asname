@@ -9,7 +9,7 @@ public enum Configures {
     /*Максимальное время неактивной сессии в секундах*/
     MAX_INACTIVE_SESSION_INTERVAL("maxInactiveSessionInterval", "45"),
     /*Период закрытия заявки в секундах*/
-    CLOSE_REQUEST_INTERVAL("closeRequestInterval", "5"),
+    CLOSE_REQUEST_INTERVAL("closeRequestInterval", "10"),
     /*Период отмены заявки в секундах*/
     CANCEL_REQUEST_INTERVAL("cancelRequestInterval", "5");
 

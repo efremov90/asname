@@ -24,7 +24,7 @@
 			<xs:element name="RequestUUID" type="UUID36Type"/>
 			<xs:element name="CreateDate" type="xs:date"/>
 			<xs:element name="ClientCode" type="ClientCodeType"/>
-			<xs:element name="Comment"/>
+			<xs:element name="Comment" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CancelRequestRqType">

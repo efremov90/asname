@@ -1,11 +1,22 @@
-package org.asname.integration.wsspring.wsthree;
+package org.asname.integration.wsspring.wsone;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.asname.dao.AccountSessionDAO;
+import org.asname.dto.CreateRequestRequestDTO;
+import org.asname.dto.RequestDTO;
+import org.asname.model.Request;
+import org.asname.service.ErrorDTOService;
+import org.asname.service.ResultDTOService;
+import org.asname.service.WSService;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+import java.sql.Date;
+import java.util.UUID;
 
 @Endpoint
 public class RequestServiceEndpoint {
@@ -22,8 +33,8 @@ public class RequestServiceEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CreateRequestRq")
     public @ResponsePayload
     CreateRequestRsType
-    createRequest(@RequestPayload CreateRequestRqType createRequestRq) throws Exception {
-        return requestService.createRequest(createRequestRq);
+    createRequest(@RequestPayload CreateRequestRqType req) throws Exception {
+        return requestService.createRequest(req);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CancelRequestRq")

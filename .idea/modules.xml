@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ws-spring/ws-spring.iml" filepath="$PROJECT_DIR$/ws-spring/ws-spring.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ws-spring/ws-three/ws-three.iml" filepath="$PROJECT_DIR$/ws-spring/ws-three/ws-three.iml" />
     </modules>
   </component>
 </project>

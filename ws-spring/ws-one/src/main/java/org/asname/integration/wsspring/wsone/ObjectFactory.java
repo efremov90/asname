@@ -1,4 +1,3 @@
-
 package org.asname.integration.wsspring.wsone;
 
 import javax.xml.bind.JAXBElement;
@@ -24,10 +23,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AddRequest_QNAME = new QName("http://anil.hcl.com/calWebService/schemas", "AddRequest");
-    private final static QName _DiffResponse_QNAME = new QName("http://anil.hcl.com/calWebService/schemas", "DiffResponse");
-    private final static QName _AddResponse_QNAME = new QName("http://anil.hcl.com/calWebService/schemas", "AddResponse");
-    private final static QName _DiffRequest_QNAME = new QName("http://anil.hcl.com/calWebService/schemas", "DiffRequest");
+    private final static QName _CreateRequestRq_QNAME = new QName("http://org.asname.requests/schemas", "CreateRequestRq");
+    private final static QName _CancelRequestRq_QNAME = new QName("http://org.asname.requests/schemas", "CancelRequestRq");
+    private final static QName _CreateRequestRs_QNAME = new QName("http://org.asname.requests/schemas", "CreateRequestRs");
+    private final static QName _CancelRequestRs_QNAME = new QName("http://org.asname.requests/schemas", "CancelRequestRs");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.asname.integration.wsspring
@@ -37,11 +36,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AddRqType }
+     * Create an instance of {@link CreateRequestRqType }
      * 
      */
-    public AddRqType createAddRqType() {
-        return new AddRqType();
+    public CreateRequestRqType createCreateRequestRqType() {
+        return new CreateRequestRqType();
     }
 
     /**
@@ -53,47 +52,47 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DiffRqType }
-     * 
+     * Create an instance of {@link CancelRequestRqType }
+     *
      */
-    public DiffRqType createDiffRqType() {
-        return new DiffRqType();
+    public CancelRequestRqType createCancelRequestRqType() {
+        return new CancelRequestRqType();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AddRqType }{@code >}}
-     * 
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateRequestRqType }{@code >}}
+     *
      */
-    @XmlElementDecl(namespace = "http://anil.hcl.com/calWebService/schemas", name = "AddRequest")
-    public JAXBElement<AddRqType> createAddRequest(AddRqType value) {
-        return new JAXBElement<AddRqType>(_AddRequest_QNAME, AddRqType.class, null, value);
+    @XmlElementDecl(namespace = "http://org.asname.requests/schemas", name = "CreateRequestRq")
+    public JAXBElement<CreateRequestRqType> createCreateRequestRq(CreateRequestRqType value) {
+        return new JAXBElement<CreateRequestRqType>(_CreateRequestRq_QNAME, CreateRequestRqType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CancelRequestRqType }{@code >}}
+     *
+     */
+    @XmlElementDecl(namespace = "http://org.asname.requests/schemas", name = "CancelRequestRq")
+    public JAXBElement<CancelRequestRqType> createCancelRequestRq(CancelRequestRqType value) {
+        return new JAXBElement<CancelRequestRqType>(_CancelRequestRq_QNAME, CancelRequestRqType.class, null, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ResultType }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://anil.hcl.com/calWebService/schemas", name = "DiffResponse")
-    public JAXBElement<ResultType> createDiffResponse(ResultType value) {
-        return new JAXBElement<ResultType>(_DiffResponse_QNAME, ResultType.class, null, value);
+    @XmlElementDecl(namespace = "http://org.asname.requests/schemas", name = "CreateRequestRs")
+    public JAXBElement<ResultType> createCreateRequestRs(ResultType value) {
+        return new JAXBElement<ResultType>(_CreateRequestRs_QNAME, ResultType.class, null, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ResultType }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://anil.hcl.com/calWebService/schemas", name = "AddResponse")
-    public JAXBElement<ResultType> createAddResponse(ResultType value) {
-        return new JAXBElement<ResultType>(_AddResponse_QNAME, ResultType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DiffRqType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://anil.hcl.com/calWebService/schemas", name = "DiffRequest")
-    public JAXBElement<DiffRqType> createDiffRequest(DiffRqType value) {
-        return new JAXBElement<DiffRqType>(_DiffRequest_QNAME, DiffRqType.class, null, value);
+    @XmlElementDecl(namespace = "http://org.asname.requests/schemas", name = "CancelRequestRs")
+    public JAXBElement<ResultType> createCancelRequestRs(ResultType value) {
+        return new JAXBElement<ResultType>(_CancelRequestRs_QNAME, ResultType.class, null, value);
     }
 
 }

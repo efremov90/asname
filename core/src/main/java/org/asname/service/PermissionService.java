@@ -31,6 +31,7 @@ public class PermissionService {
 
         switch (userAccountId) {
             case -1: //system
+            case -2: //asname1
                 return result = true;
         }
 

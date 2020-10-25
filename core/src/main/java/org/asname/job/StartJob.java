@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static org.asname.model.Configures.CANCEL_REQUEST_INTERVAL;
 import static org.asname.model.Configures.CLOSE_REQUEST_INTERVAL;
 
 @WebListener
