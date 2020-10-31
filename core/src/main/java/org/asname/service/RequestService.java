@@ -241,7 +241,7 @@ public class RequestService {
         return result;
     }
 
-    public boolean close(String requestUUID, int userAccountId) throws Exception {
+    public boolean close(String requestUUID, int userAccountId, String comment) throws Exception {
         logger.info("start");
 
         boolean result = false;
@@ -259,6 +259,7 @@ public class RequestService {
 
         conn.setAutoCommit(false);
         request.setRequestStatus(CLOSE);
+        request.setComment(comment);
         request.setLastDateTimeChangeRequestStatus(new java.util.Date());
         result = new RequestDAO().edit(request);
 

@@ -1,6 +1,6 @@
 package org.asname.model;
 
-public enum WSMethodType {
+public enum IntegrationMethodType {
 
     Unknown,
     CreateRequestRq,

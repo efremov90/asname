@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/mq/mq-one" />
     <file type="web" url="file://$PROJECT_DIR$/webapp" />
     <file type="web" url="file://$PROJECT_DIR$/ws" />
     <file type="web" url="file://$PROJECT_DIR$/ws-one" />
@@ -23,6 +24,7 @@
         <option value="$PROJECT_DIR$/ws-one/pom.xml" />
         <option value="$PROJECT_DIR$/ws-spring/pom.xml" />
         <option value="$PROJECT_DIR$/ws-spring/ws-three/pom.xml" />
+        <option value="$PROJECT_DIR$/ws/pom.xml" />
         <option value="$PROJECT_DIR$/ws2/pom.xml" />
         <option value="$PROJECT_DIR$/wspringnew/pom.xml" />
         <option value="$PROJECT_DIR$/wsspring/pom.xml" />

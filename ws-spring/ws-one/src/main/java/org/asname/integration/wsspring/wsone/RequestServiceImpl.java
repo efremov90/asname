@@ -1,7 +1,7 @@
 package org.asname.integration.wsspring.wsone;
 
 import org.asname.model.Request;
-import org.asname.service.WSService;
+import org.asname.service.IntegrationService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class RequestServiceImpl implements RequestService {
         } catch (Exception e) {
             e.printStackTrace();
             resp.setCode(-1);
-            resp.setDescription(new WSService().getExceptionString(e));
+            resp.setDescription(new IntegrationService().getExceptionString(e));
             return resp;
         }
     }
@@ -46,7 +46,7 @@ public class RequestServiceImpl implements RequestService {
         } catch (Exception e) {
             e.printStackTrace();
             resp.setCode(-1);
-            resp.setDescription(new WSService().getExceptionString(e));
+            resp.setDescription(new IntegrationService().getExceptionString(e));
             return resp;
         }
     }

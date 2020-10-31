@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by EAA (EMBRACE) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ru.crud.requests"
-		   targetNamespace="http://ru.crud.requests" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://org.asname.requests/schemas"
+		   targetNamespace="http://org.asname.requests/schemas" version="1.0">
 	<xs:element name="CreateRequestRq" type="CreateRequestRqType"/>
 	<xs:element name="CreateRequestRs" type="ResultType"/>
 	<xs:element name="CancelRequestRq" type="CancelRequestRqType"/>
@@ -24,7 +24,7 @@
 			<xs:element name="RequestUUID" type="UUID36Type"/>
 			<xs:element name="CreateDate" type="xs:date"/>
 			<xs:element name="ClientCode" type="ClientCodeType"/>
-			<xs:element name="Comment"/>
+			<xs:element name="Comment" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CancelRequestRqType">

@@ -19,10 +19,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
-        <module name="ws" />
+        <module name="ws-two" />
         <module name="ws-one" />
         <module name="webapp" />
-        <module name="ws-two" />
+        <module name="mq-one" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -30,6 +30,7 @@
       <module name="spring" target="1.8" />
       <module name="test1" target="1.8" />
       <module name="untitled" target="1.8" />
+      <module name="ws" target="1.8" />
       <module name="ws-spring" target="1.8" />
       <module name="ws-three" target="1.8" />
       <module name="wspringnew" target="1.8" />

@@ -47,7 +47,8 @@ public class CloseRequestTaskService implements Runnable {
                         try {
                             new RequestService().close(
                                     x.getRequestUUID(),
-                                    -1
+                                    -1,
+                                    "Закрыто автоматически"
                             );
                             count_requests[0] = count_requests[0] + 1;
                         } catch (Exception e) {

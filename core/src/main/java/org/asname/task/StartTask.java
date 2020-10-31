@@ -1,4 +1,4 @@
-package org.asname.job;
+package org.asname.task;
 
 import org.asname.service.CloseRequestTaskService;
 
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import static org.asname.model.Configures.CLOSE_REQUEST_INTERVAL;
 
 @WebListener
-public class StartJob implements ServletContextListener {
+public class StartTask implements ServletContextListener {
     private ScheduledExecutorService scheduledExecutorService;
 
     @Override
