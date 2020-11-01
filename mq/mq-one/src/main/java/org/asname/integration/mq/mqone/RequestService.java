@@ -1,4 +1,4 @@
-package org.asname.integration.wsspring.wsone;
+package org.asname.integration.mq.mqone;
 
 import org.asname.integration.requests.CancelRequestRqType;
 import org.asname.integration.requests.CancelRequestRsType;

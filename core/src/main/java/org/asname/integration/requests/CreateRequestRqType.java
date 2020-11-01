@@ -1,5 +1,5 @@
 
-package org.asname.integration.wsspring.wsone;
+package org.asname.integration.requests;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;

@@ -3,6 +3,7 @@ package org.asname.utils;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.asname.dao.AccountSessionDAO;
 //import org.asname.integration.requests.CancelRequestRqType;
+import org.asname.integration.requests.CancelRequestRqType;
 import org.asname.model.ATMTypeType;
 import org.asname.model.ClientATM;
 import org.asname.model.ReportType;
@@ -83,42 +84,44 @@ public class DemoTest {
                         )
                 ));*/
 
-/*        CancelRequestRqType cancelRequestRq = new CancelRequestRqType();
-        cancelRequestRq.setRequestUUID(UUID.randomUUID().toString());
-        cancelRequestRq.setComment("Comment");
+        CancelRequestRqType CancelRequestRq = new CancelRequestRqType();
+        CancelRequestRq.setRequestUUID(UUID.randomUUID().toString());
+        CancelRequestRq.setComment("Comment");
 
-//        JAXBContext context = JAXBContext.newInstance(CancelRequestRqType.class);
-        JAXBContext context = JAXBContext.newInstance();
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = sf.newSchema(new File("core/src/main/java/org/asname/integration/requests/Requests.xsd"));
+
+
+        JAXBContext context = JAXBContext.newInstance(CancelRequestRqType.class);
+//        JAXBContext context = JAXBContext.newInstance();
         Marshaller m = context.createMarshaller();
+        m.setSchema(schema);
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        m.marshal(cancelRequestRq, baos);
+        m.marshal(CancelRequestRq, baos);
 
-        System.out.println(baos.toString());*/
+        System.out.println(baos.toString());
 
-        /*ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
         Unmarshaller um = context.createUnmarshaller();
         CancelRequestRqType cancelRequestRqRead = (CancelRequestRqType) um.unmarshal(bais);
         String str = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<ns2:CancelRequestRq xmlns:ns2=\"http://ru.crud.requests\">\n" +
-                "    <RequestUUID>d6faad1f-bdb1-4738-a548-90fc18d745201</RequestUUID>\n" +
-                "    <Comment>Comment</Comment>\n" +
-                "</ns2:CancelRequestRq>";
+                "<sch:CancelRequestRq xmlns:sch=\"http://org.asname.requests/schemas\">\n" +
+                "  <RequestUUID>stringstringstringstringstringstring654321/RequestUUID>\n" +
+                "  <Comment>string</Comment>\n" +
+                "</sch:CancelRequestRq>";
 
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = sf.newSchema(new File("src\\org\\crudservlet\\integration\\requests\\schema\\CRUDRequests" +
-                ".xsd"));
+//        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//        Schema schema = sf.newSchema(new File("core/src/main/java/org/asname/integration/requests/Requests.xsd"));
 
-        JAXBContext jc = JAXBContext.newInstance(CancelRequestRqType.class);
+//        JAXBContext jc = JAXBContext.newInstance(CancelRequestRqType.class);
+        JAXBContext jc = JAXBContext.newInstance();
         Unmarshaller unmarshaller = jc.createUnmarshaller();
-        unmarshaller.setSchema(schema);
-        cancelRequestRqRead = (CancelRequestRqType) unmarshaller.unmarshal(new ByteArrayInputStream(str.getBytes()));
-        System.out.println("");*/
-
-
-
-
+//        unmarshaller.setSchema(schema);
+//        cancelRequestRqRead = (CancelRequestRqType) unmarshaller.unmarshal(new ByteArrayInputStream(str.getBytes()));
+        Object object = unmarshaller.unmarshal(new ByteArrayInputStream(str.getBytes()));
+        System.out.println("");
 
     }
 

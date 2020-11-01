@@ -10,20 +10,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 @Component
-public class JmsReceiver /*implements MessageListener*/ {
-    /*public void onMessage(Message message) {
-        if (message instanceof TextMessage) {
-            try {
-                System.out.println(((TextMessage) message).getText());
-            }
-            catch (JMSException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else {
-            throw new IllegalArgumentException("Message must be of type TextMessage");
-        }
-    }*/
+public class JmsReceiver {
     /*@JmsListener(destination = "AS1.IN")
     public void receiveRequest(Message message) throws JMSException {
         System.out.println(message.getJMSMessageID());
@@ -36,9 +23,25 @@ public class JmsReceiver /*implements MessageListener*/ {
     private JmsSender producer;
 
     @JmsListener(destination = "AS1.IN")
-    public void receiveMessage(final Message jsonMessage) throws JMSException {
+    public void receiveInMessage(final Message textMessage) throws JMSException {
+        String messageData = textMessage.toString();
+        System.out.println("Received message getJMSMessageID" + textMessage.getJMSMessageID());
+        System.out.println("Received message getJMSCorrelationID" + textMessage.getJMSCorrelationID());
+        System.out.println("Received message getJMSType" + textMessage.getJMSType());
+        System.out.println("Received message toString" + textMessage.toString());
+        if (textMessage instanceof TextMessage) {
+            try {
+                System.out.println("Received message textMessage" + ((TextMessage) textMessage).getText());
+            }
+            catch (JMSException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+//        producer.sendOutMessage("AS1.OUT", messageData);
+    }
+    @JmsListener(destination = "AS1.RESPONSE")
+    public void receiveResponseMessage(final Message jsonMessage) throws JMSException {
         String messageData = jsonMessage.toString();
         System.out.println("Received message " + jsonMessage);
-        producer.sendMessage("AS1.OUT", messageData);
     }
 }

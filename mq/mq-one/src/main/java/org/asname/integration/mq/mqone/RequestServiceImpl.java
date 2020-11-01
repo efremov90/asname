@@ -1,4 +1,4 @@
-package org.asname.integration.wsspring.wsone;
+package org.asname.integration.mq.mqone;
 
 import org.asname.integration.requests.CancelRequestRqType;
 import org.asname.integration.requests.CancelRequestRsType;
@@ -25,7 +25,7 @@ public class RequestServiceImpl implements RequestService {
             request.setCreateDateTime(new java.util.Date());
             request.setClientCode(req.getClientCode());
             request.setComment(req.getComment());
-            request.setLastUserAccountIdChangeRequestStatus(-2);
+            request.setLastUserAccountIdChangeRequestStatus(-3);
             new org.asname.service.RequestService().create(request,
                     -2);
             resp.setCode(0);
@@ -43,7 +43,7 @@ public class RequestServiceImpl implements RequestService {
         CancelRequestRsType resp = new CancelRequestRsType();
         try {
             new org.asname.service.RequestService().cancel(req.getRequestUUID(),
-                    -2,
+                    -3,
                     req.getComment());
             resp.setCode(0);
             return resp;

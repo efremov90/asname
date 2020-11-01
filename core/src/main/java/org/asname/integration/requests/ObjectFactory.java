@@ -1,4 +1,4 @@
-package org.asname.integration.wsspring.wsone;
+package org.asname.integration.requests;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

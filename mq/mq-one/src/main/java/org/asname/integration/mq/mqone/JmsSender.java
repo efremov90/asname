@@ -30,7 +30,19 @@ public class JmsSender {
     @Autowired
     JmsTemplate jmsTemplate;
 
-    public void sendMessage(final String queueName, final String message) {
+    public void sendRequestMessage(final String queueName, final String message) {
+        final String textMessage = message;
+        System.out.println("Sending message " + textMessage + "to queue - " + queueName);
+        jmsTemplate.send(queueName, new MessageCreator() {
+
+            public Message createMessage(Session session) throws JMSException {
+                TextMessage message = session.createTextMessage(textMessage);
+                return message;
+            }
+        });
+    }
+
+    public void sendOutMessage(final String queueName, final String message) {
         final String textMessage = message;
         System.out.println("Sending message " + textMessage + "to queue - " + queueName);
         jmsTemplate.send(queueName, new MessageCreator() {

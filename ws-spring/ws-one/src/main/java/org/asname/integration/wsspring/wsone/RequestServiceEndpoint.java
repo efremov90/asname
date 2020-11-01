@@ -1,5 +1,9 @@
 package org.asname.integration.wsspring.wsone;
 
+import org.asname.integration.requests.CancelRequestRqType;
+import org.asname.integration.requests.CancelRequestRsType;
+import org.asname.integration.requests.CreateRequestRqType;
+import org.asname.integration.requests.CreateRequestRsType;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -27,7 +31,8 @@ public class RequestServiceEndpoint {
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CancelRequestRq")
-    public @ResponsePayload CancelRequestRsType
+    public @ResponsePayload
+    CancelRequestRsType
     cancelRequest(@RequestPayload CancelRequestRqType cancelRequestRq) throws Exception {
         return requestService.cancelRequest(cancelRequestRq);
     }
