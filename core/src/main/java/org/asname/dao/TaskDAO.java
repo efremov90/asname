@@ -1,12 +1,12 @@
 package org.asname.dao;
 
 import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.Task;
+import org.asname.model.tasks.Task;
 
 import java.sql.*;
 import java.util.logging.Logger;
 
-import static org.asname.model.TaskStatusType.CREATED;
+import static org.asname.model.tasks.TaskStatusType.CREATED;
 
 public class TaskDAO {
 

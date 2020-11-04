@@ -1,6 +1,6 @@
 package org.asname.task;
 
-import org.asname.service.CloseRequestTaskService;
+import org.asname.service.requests.CloseRequestTaskService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static org.asname.model.Configures.CLOSE_REQUEST_INTERVAL;
+import static org.asname.model.configure.Configures.CLOSE_REQUEST_INTERVAL;
 
 @WebListener
 public class StartTask implements ServletContextListener {

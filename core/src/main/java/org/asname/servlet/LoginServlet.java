@@ -1,9 +1,9 @@
 package org.asname.servlet;
 
-import org.asname.service.AuthHeader;
-import org.asname.service.ErrorDTOService;
-import org.asname.service.SecurityContext;
-import org.asname.service.SecuritySevice;
+import org.asname.service.security.AuthHeader;
+import org.asname.service.servlet.ErrorDTOService;
+import org.asname.service.security.SecurityContext;
+import org.asname.service.security.SecuritySevice;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static org.asname.filter.SecurityFilter.AUTHENTICATION_HEADER;
-import static org.asname.model.SecurityContextStatusCodeType.S00000;
+import static org.asname.model.security.SecurityContextStatusCodeType.S00000;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {

@@ -2,13 +2,17 @@ package org.asname.service;
 
 import org.asname.dao.TaskDAO;
 import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.*;
+import org.asname.model.audit.AuditOperType;
+import org.asname.model.tasks.Task;
+import org.asname.model.tasks.TaskStatusType;
+import org.asname.model.tasks.TaskType;
+import org.asname.service.audit.AuditService;
 
 import java.sql.*;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import static org.asname.model.TaskStatusType.*;
+import static org.asname.model.tasks.TaskStatusType.*;
 
 public class TaskService {
 

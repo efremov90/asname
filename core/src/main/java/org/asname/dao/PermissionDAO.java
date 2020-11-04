@@ -1,12 +1,11 @@
 package org.asname.dao;
 
 import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.Permission;
-import org.asname.model.Permissions;
+import org.asname.model.security.Permission;
+import org.asname.model.security.Permissions;
 
 import java.sql.*;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 public class PermissionDAO {

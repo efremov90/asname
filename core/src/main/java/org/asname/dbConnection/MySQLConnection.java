@@ -1,9 +1,7 @@
 package org.asname.dbConnection;
 
-import org.asname.service.RequestService;
+import org.asname.service.requests.RequestService;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Logger;
 

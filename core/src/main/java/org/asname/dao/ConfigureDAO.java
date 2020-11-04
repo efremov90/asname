@@ -1,7 +1,7 @@
 package org.asname.dao;
 
 import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.Configure;
+import org.asname.model.configure.Configure;
 
 import java.sql.*;
 import java.util.ArrayList;

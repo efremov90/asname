@@ -1,14 +1,13 @@
 package org.asname.filter;
 
-import org.asname.service.AuthHeader;
-import org.asname.service.SecuritySevice;
+import org.asname.service.security.AuthHeader;
+import org.asname.service.security.SecuritySevice;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 @WebFilter(urlPatterns = {"/*"})

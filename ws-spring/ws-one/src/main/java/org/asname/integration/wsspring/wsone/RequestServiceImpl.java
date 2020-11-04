@@ -1,11 +1,11 @@
 package org.asname.integration.wsspring.wsone;
 
-import org.asname.integration.requests.CancelRequestRqType;
-import org.asname.integration.requests.CancelRequestRsType;
-import org.asname.integration.requests.CreateRequestRqType;
-import org.asname.integration.requests.CreateRequestRsType;
-import org.asname.model.Request;
-import org.asname.service.IntegrationService;
+import org.asname.integration.requests.ws.CancelRequestRqType;
+import org.asname.integration.requests.ws.CancelRequestRsType;
+import org.asname.integration.requests.ws.CreateRequestRqType;
+import org.asname.integration.requests.ws.CreateRequestRsType;
+import org.asname.model.requests.Request;
+import org.asname.service.integration.IntegrationService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,14 +19,13 @@ public class RequestServiceImpl implements RequestService {
         CreateRequestRsType resp = new CreateRequestRsType();
         try {
             Request request = new Request();
-            request.setId(0);
             request.setRequestUUID(req.getRequestUUID());
             request.setCreateDate(Date.valueOf(req.getCreateDate().toString()));
             request.setCreateDateTime(new java.util.Date());
             request.setClientCode(req.getClientCode());
             request.setComment(req.getComment());
             request.setLastUserAccountIdChangeRequestStatus(-2);
-            new org.asname.service.RequestService().create(request,
+            new org.asname.service.requests.RequestService().create(request,
                     -2);
             resp.setCode(0);
             return resp;
@@ -42,7 +41,7 @@ public class RequestServiceImpl implements RequestService {
     public CancelRequestRsType cancelRequest(CancelRequestRqType req) throws IOException {
         CancelRequestRsType resp = new CancelRequestRsType();
         try {
-            new org.asname.service.RequestService().cancel(req.getRequestUUID(),
+            new org.asname.service.requests.RequestService().cancel(req.getRequestUUID(),
                     -2,
                     req.getComment());
             resp.setCode(0);

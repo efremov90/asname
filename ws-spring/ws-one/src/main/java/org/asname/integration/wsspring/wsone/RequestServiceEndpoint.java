@@ -1,10 +1,9 @@
 package org.asname.integration.wsspring.wsone;
 
-import org.asname.integration.requests.CancelRequestRqType;
-import org.asname.integration.requests.CancelRequestRsType;
-import org.asname.integration.requests.CreateRequestRqType;
-import org.asname.integration.requests.CreateRequestRsType;
-import org.jdom2.JDOMException;
+import org.asname.integration.requests.ws.CancelRequestRqType;
+import org.asname.integration.requests.ws.CancelRequestRsType;
+import org.asname.integration.requests.ws.CreateRequestRqType;
+import org.asname.integration.requests.ws.CreateRequestRsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -19,7 +18,7 @@ public class RequestServiceEndpoint {
     private RequestService requestService;
 
     @Autowired
-    public RequestServiceEndpoint(RequestService requestService) throws JDOMException {
+    public RequestServiceEndpoint(RequestService requestService) {
         this.requestService = requestService;
     }
 

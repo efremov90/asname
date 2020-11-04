@@ -1,10 +1,10 @@
 package org.asname.integration.wsspring.wsone;
 
-import org.asname.model.WSLog;
-import org.asname.model.WSLogDirectionType;
-import org.asname.model.WSLogStatusType;
-import org.asname.service.IntegrationService;
-import org.asname.service.WSLogService;
+import org.asname.model.integration.WSLog;
+import org.asname.model.integration.DirectionType;
+import org.asname.model.integration.StatusType;
+import org.asname.service.integration.IntegrationService;
+import org.asname.service.integration.WSLogService;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.EndpointInterceptor;
 
@@ -15,19 +15,19 @@ public class Interceptor implements EndpointInterceptor {
 
     private Date StartDatetime = null;
     private Date EndDatetime = null;
-    private WSLogStatusType wsLogStatusType;
+    private StatusType status;
 
     @Override
     public boolean handleRequest(MessageContext messageContext, Object o) throws Exception {
         StartDatetime = new Date();
-        wsLogStatusType = WSLogStatusType.RECEIVED;
+        status = StatusType.RECEIVED;
         return true;
     }
 
     @Override
     public boolean handleResponse(MessageContext messageContext, Object o) throws Exception {
         EndDatetime = new Date();
-        wsLogStatusType = WSLogStatusType.OK;
+        status = StatusType.OK;
         return true;
     }
 
@@ -40,7 +40,7 @@ public class Interceptor implements EndpointInterceptor {
     @Override
     public void afterCompletion(MessageContext messageContext, Object o, Exception e) throws Exception {
         WSLog wsLog = new WSLog();
-        wsLog.setDirection(WSLogDirectionType.IN);
+        wsLog.setDirection(DirectionType.IN);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         messageContext.getRequest().writeTo(baos);
         wsLog.setRequest(new IntegrationService().transformXML(baos.toString()));
@@ -48,7 +48,7 @@ public class Interceptor implements EndpointInterceptor {
         messageContext.getResponse().writeTo(baos);
         wsLog.setResponse(new IntegrationService().transformXML(baos.toString()));
         wsLog.setMethod(new IntegrationService().getMethod(messageContext.getRequest().toString()).name());
-        wsLog.setStatus(wsLogStatusType);
+        wsLog.setStatus(status);
         wsLog.setStartDatetime(StartDatetime);
         wsLog.setEndDatetime(EndDatetime);
         new WSLogService().create(wsLog);

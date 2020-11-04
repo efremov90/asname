@@ -1,8 +1,7 @@
 package org.asname.service;
 
 import org.asname.dao.ConfigureDAO;
-import org.asname.dao.UserAccountDAO;
-import org.asname.model.Configure;
+import org.asname.model.configure.Configure;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

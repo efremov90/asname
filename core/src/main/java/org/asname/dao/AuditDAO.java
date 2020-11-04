@@ -1,7 +1,7 @@
 package org.asname.dao;
 
 import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.Audit;
+import org.asname.model.audit.Audit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
