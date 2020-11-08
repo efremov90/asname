@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import static org.asname.audit.model.SystemType.ASNAME;
+
 @WebServlet(urlPatterns = {"/createRequest"})
 public class CreateRequestServlet extends HttpServlet {
 
@@ -46,6 +48,7 @@ public class CreateRequestServlet extends HttpServlet {
             request.setClientCode(requestDTO.getClientCode());
             request.setComment(requestDTO.getComment());
             request.setLastUserAccountIdChangeRequestStatus(new AccountSessionDAO().getAccountSessionBySessionId(req.getRequestedSessionId()).getUserAccountId());
+            request.setCreateSystemId(ASNAME.getId());
             new RequestService().create(request,
                     new AccountSessionDAO().getAccountSessionBySessionId(req.getRequestedSessionId()).getUserAccountId());
             ResultDTOService.writer(resp, "0", null);

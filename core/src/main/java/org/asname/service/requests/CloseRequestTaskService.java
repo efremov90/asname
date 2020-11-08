@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.asname.model.tasks.TaskType.CLOSE_REQUEST;
+import static org.asname.audit.model.SystemType.ASNAME;
 
 public class CloseRequestTaskService implements Runnable {
 
@@ -48,7 +49,7 @@ public class CloseRequestTaskService implements Runnable {
                         try {
                             new RequestService().close(
                                     x.getRequestUUID(),
-                                    -1,
+                                    ASNAME.getId(),
                                     "Закрыто автоматически"
                             );
                             count_requests[0] = count_requests[0] + 1;

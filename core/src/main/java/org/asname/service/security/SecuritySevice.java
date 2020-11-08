@@ -2,12 +2,12 @@ package org.asname.service.security;
 
 import org.asname.dao.users.AccountSessionDAO;
 import org.asname.dao.users.UserAccountDAO;
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.users.AccountSession;
-import org.asname.model.audit.AuditOperType;
+import org.asname.audit.model.AuditOperType;
 import org.asname.model.security.SecurityContextStatusCodeType;
 import org.asname.model.users.UserAccount;
-import org.asname.service.audit.AuditService;
+import org.asname.audit.service.AuditService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;

@@ -1,9 +1,6 @@
 package org.asname.utils;
 
 //import org.asname.integration.requests.CancelRequestRqType;
-import org.asname.integration.mq.MessageConverter;
-import org.asname.integration.requests.ws.CancelRequestRqType;
-import org.springframework.jms.support.converter.MarshallingMessageConverter;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -54,7 +51,7 @@ public class DemoTest {
                         )
                 ));*/
 
-        CancelRequestRqType CancelRequestRq = new CancelRequestRqType();
+        /*CancelRequestRqType CancelRequestRq = new CancelRequestRqType();
         CancelRequestRq.setRequestUUID(UUID.randomUUID().toString());
         CancelRequestRq.setComment("Comment");
 
@@ -80,7 +77,7 @@ public class DemoTest {
                 "<sch:CancelRequestRq xmlns:sch=\"http://org.asname.requests/schemas\">\n" +
                 "  <RequestUUID>stringstringstringstringstringstring</RequestUUID>\n" +
                 "  <Comment>string</Comment>\n" +
-                "</sch:CancelRequestRq>";
+                "</sch:CancelRequestRq>";*/
 
 //        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 //        Schema schema = sf.newSchema(new File("core/src/main/java/org/asname/integration/requests/Requests.xsd"));
@@ -92,9 +89,9 @@ public class DemoTest {
         cancelRequestRqRead = (CancelRequestRqType) unmarshaller.unmarshal(new ByteArrayInputStream(str.getBytes()));
         Object object = unmarshaller.unmarshal(new ByteArrayInputStream(str.getBytes()));
         System.out.println("");*/
-        MessageConverter messageConverter = new MessageConverter(new CancelRequestRqType(),
+        /*MessageConverter messageConverter = new MessageConverter(new CancelRequestRqType(),
                 "core/src/main/java/org/asname/integration/requests/ws/Requests.xsd");
-        messageConverter.unmarshal(str);
+        messageConverter.unmarshal(str);*/
     }
 
 }

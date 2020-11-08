@@ -1,6 +1,6 @@
 package org.asname.dao.requests;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.requests.RequestStatusHistory;
 
 import java.sql.*;

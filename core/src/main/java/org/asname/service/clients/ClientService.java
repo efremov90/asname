@@ -1,6 +1,6 @@
 package org.asname.service.clients;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.clients.Client;
 import org.asname.model.clients.ClientTypeType;
 

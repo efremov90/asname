@@ -5,11 +5,13 @@ import org.asname.integration.requests.ws.CancelRequestRsType;
 import org.asname.integration.requests.ws.CreateRequestRqType;
 import org.asname.integration.requests.ws.CreateRequestRsType;
 import org.asname.model.requests.Request;
-import org.asname.service.integration.IntegrationService;
+import org.asname.integration.utils.service.IntegrationService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.Date;
+
+import static org.asname.audit.model.SystemType.ASNAME1;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -24,9 +26,10 @@ public class RequestServiceImpl implements RequestService {
             request.setCreateDateTime(new java.util.Date());
             request.setClientCode(req.getClientCode());
             request.setComment(req.getComment());
-            request.setLastUserAccountIdChangeRequestStatus(-2);
+            request.setLastUserAccountIdChangeRequestStatus(ASNAME1.getId());
+            request.setCreateSystemId(ASNAME1.getId());
             new org.asname.service.requests.RequestService().create(request,
-                    -2);
+                    ASNAME1.getId());
             resp.setCode(0);
             return resp;
         } catch (Exception e) {
@@ -42,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
         CancelRequestRsType resp = new CancelRequestRsType();
         try {
             new org.asname.service.requests.RequestService().cancel(req.getRequestUUID(),
-                    -2,
+                    ASNAME1.getId(),
                     req.getComment());
             resp.setCode(0);
             return resp;

@@ -13,6 +13,7 @@ public class Request {
     private String CommentRequestStatus;
     private Date LastDateTimeChangeRequestStatus;
     private int LastUserAccountIdChangeRequestStatus;
+    private int CreateSystemId;
 
     public Request() {
     }
@@ -95,5 +96,13 @@ public class Request {
 
     public void setLastUserAccountIdChangeRequestStatus(int lastUserAccountIdChangeRequestStatus) {
         LastUserAccountIdChangeRequestStatus = lastUserAccountIdChangeRequestStatus;
+    }
+
+    public int getCreateSystemId() {
+        return CreateSystemId;
+    }
+
+    public void setCreateSystemId(int createSystemId) {
+        CreateSystemId = createSystemId;
     }
 }

@@ -1,6 +1,6 @@
 package org.asname.dao.users;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.users.AccountSession;
 
 import java.sql.*;

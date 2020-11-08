@@ -3,7 +3,7 @@ package org.asname.integration.wsspring.wsone;
 import org.asname.model.integration.WSLog;
 import org.asname.model.integration.DirectionType;
 import org.asname.model.integration.StatusType;
-import org.asname.service.integration.IntegrationService;
+import org.asname.integration.utils.service.IntegrationService;
 import org.asname.service.integration.WSLogService;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.EndpointInterceptor;
@@ -47,7 +47,7 @@ public class Interceptor implements EndpointInterceptor {
         baos.reset();
         messageContext.getResponse().writeTo(baos);
         wsLog.setResponse(new IntegrationService().transformXML(baos.toString()));
-        wsLog.setMethod(new IntegrationService().getMethod(messageContext.getRequest().toString()).name());
+        wsLog.setMethod(new IntegrationService().getMethod(messageContext.getRequest().toString()));
         wsLog.setStatus(status);
         wsLog.setStartDatetime(StartDatetime);
         wsLog.setEndDatetime(EndDatetime);

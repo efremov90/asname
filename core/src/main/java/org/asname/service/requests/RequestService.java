@@ -1,31 +1,37 @@
 package org.asname.service.requests;
 
-import org.asname.dao.requests.RequestAuditsDAO;
+import org.asname.audit.dao.RequestAuditsDAO;
 import org.asname.dao.requests.RequestDAO;
 import org.asname.dao.requests.RequestStatusHistoryDAO;
 import org.asname.dao.requests.RequestTasksDAO;
 import org.asname.dao.users.UserAccountDAO;
-import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.audit.Audit;
-import org.asname.model.audit.AuditOperType;
+import org.asname.db.connection.MySQLConnection;
+import org.asname.audit.model.Audit;
+import org.asname.audit.model.AuditOperType;
+import org.asname.integration.contract.requests.mq.NotifyRequestStatusRequestType;
+import org.asname.integration.contract.requests.mq.NotifyRequestStatusRqType;
+import org.asname.integration.mq.send.mqone.RequestServiceImpl;
+import org.asname.integration.utils.service.IntegrationService;
 import org.asname.model.requests.Request;
 import org.asname.model.requests.RequestStatusHistory;
 import org.asname.model.requests.RequestStatusType;
 import org.asname.model.tasks.Task;
 import org.asname.model.tasks.TaskStatusType;
 import org.asname.model.users.UserAccount;
-import org.asname.service.audit.AuditService;
+import org.asname.audit.service.AuditService;
 import org.asname.service.security.PermissionService;
 import org.asname.service.TaskService;
 import org.asname.service.clients.ClientService;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import static org.asname.audit.model.SystemType.ASNAME1;
 import static org.asname.model.configure.Configures.CANCEL_REQUEST_INTERVAL;
 import static org.asname.model.security.Permissions.*;
 import static org.asname.model.requests.RequestStatusType.*;
@@ -44,20 +50,18 @@ public class RequestService {
 
     public void validateExistsRequest(String requestUUID) throws Exception {
         logger.info("start");
-//        try {
+
         if (getRequestIdByUUID(requestUUID) != null)
             throw new Exception(String.format("Уже есть заявка с UUID %s.",
                     requestUUID));
-/*        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
     }
 
     public Integer getRequestIdByUUID(String requestUUID) throws SQLException {
         logger.info("start");
 
         Integer id = null;
-//        try {
+
         String sql = "SELECT ID  " +
                 "FROM REQUESTS r " +
                 "WHERE REQUEST_UUID = ?";
@@ -69,9 +73,7 @@ public class RequestService {
         if (rs.next()) {
             id = rs.getInt("id");
         }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+
         return id;
     }
 
@@ -87,7 +89,7 @@ public class RequestService {
         logger.info("start");
 
         Request request = null;
-//        try {
+
         String sql = "SELECT " +
                 "r.ID, r.REQUEST_UUID, r.CREATE_DATE, r.CREATE_DATETIME, r.CLIENT_CODE, r.COMMENT, r. STATUS, " +
                 "rsh.EVENT_DATETIME, rsh.USER_ACCOUNT_ID " +
@@ -112,9 +114,7 @@ public class RequestService {
             request.setLastDateTimeChangeRequestStatus(Timestamp.valueOf(rs.getNString("event_datetime")));
             request.setLastUserAccountIdChangeRequestStatus(rs.getInt("user_account_id"));
         }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+
         return request;
     }
 
@@ -122,7 +122,7 @@ public class RequestService {
         logger.info("start");
 
         Integer result = null;
-//        try {
+
         UserAccount userAccount = new UserAccountDAO().getUserAccountById(userAccountId);
         if (!new PermissionService().isPermission(userAccountId, REQUESTS_CREATE))
             throw new Exception(String.format("У пользователя %s отсутствует разрешение %s.",
@@ -191,10 +191,6 @@ public class RequestService {
 
         conn.commit();
         conn.setAutoCommit(true);
-/*        } catch (Exception e) {
-            result=false;
-            e.printStackTrace();
-        }*/
 
         return result;
     }
@@ -203,7 +199,8 @@ public class RequestService {
         logger.info("start");
 
         boolean result = false;
-//        try {
+        boolean isValid = true;
+
         UserAccount userAccount = new UserAccountDAO().getUserAccountById(userAccountId);
         if (!new PermissionService().isPermission(userAccountId, REQUESTS_CANCEL))
             throw new Exception(String.format("У пользователя %s отсутствует разрешение %s.",
@@ -216,42 +213,51 @@ public class RequestService {
         Request request = new RequestService().getRequestByUUID(requestUUID);
 
         if (getRequestByUUID(requestUUID).getRequestStatus() != CREATED)
-            throw new Exception(String.format("Заявка в статусе %s.",
-                    request.getRequestStatus().getDescription()));
+            if (request.getCreateSystemId() != ASNAME1.getId())
+                throw new Exception(String.format("Заявка в статусе %s.",
+                        request.getRequestStatus().getDescription()));
+            else isValid = false;
 
-        conn.setAutoCommit(false);
-        request.setRequestStatus(CANCELED);
-        request.setLastDateTimeChangeRequestStatus(new java.util.Date());
-        result = new RequestDAO().edit(request);
+        if (isValid) {
 
-        RequestStatusHistory requestStatusHistory = new RequestStatusHistory();
-        requestStatusHistory.setRequestId(request.getId());
-        requestStatusHistory.setStatus(CANCELED);
-        requestStatusHistory.setComment(comment);
-        requestStatusHistory.setEventDateTime(request.getLastDateTimeChangeRequestStatus());
-        requestStatusHistory.setUserId(userAccountId);
-        new RequestStatusHistoryDAO().create(requestStatusHistory);
+            conn.setAutoCommit(false);
+            request.setRequestStatus(CANCELED);
+            request.setLastDateTimeChangeRequestStatus(new java.util.Date());
+            result = new RequestDAO().edit(request);
 
-        new AuditService().create(
-                AuditOperType.CANCEL_REQUEST,
-                userAccountId,
-                requestStatusHistory.getEventDateTime(),
-                String.format("Комментарий: %s",
-                        requestStatusHistory.getComment()),
-                request.getId()
-        );
+            RequestStatusHistory requestStatusHistory = new RequestStatusHistory();
+            requestStatusHistory.setRequestId(request.getId());
+            requestStatusHistory.setStatus(CANCELED);
+            requestStatusHistory.setComment(comment);
+            requestStatusHistory.setEventDateTime(request.getLastDateTimeChangeRequestStatus());
+            requestStatusHistory.setUserId(userAccountId);
+            new RequestStatusHistoryDAO().create(requestStatusHistory);
 
-        Integer auditId = MySQLConnection.getLastInsertId();
+            new AuditService().create(
+                    AuditOperType.CANCEL_REQUEST,
+                    userAccountId,
+                    requestStatusHistory.getEventDateTime(),
+                    String.format("Комментарий: %s",
+                            requestStatusHistory.getComment()),
+                    request.getId()
+            );
 
-        new RequestAuditsDAO().create(request.getId(), auditId);
+            Integer auditId = MySQLConnection.getLastInsertId();
 
-        conn.commit();
-        conn.setAutoCommit(true);
-        //result = new RequestDAO().create(request);
-/*        } catch (Exception e) {
-            result=false;
-            e.printStackTrace();
-        }*/
+            new RequestAuditsDAO().create(request.getId(), auditId);
+
+            conn.commit();
+            conn.setAutoCommit(true);
+        }
+
+        if ((request.getCreateSystemId() == ASNAME1.getId()) && (userAccountId != ASNAME1.getId())) {
+            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
+            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+            notifyRequest.setRequestUUID(requestUUID);
+            notifyRequest.setStatus(request.getRequestStatus().name());
+            notify.setNotifyRequestStatusRequest(notifyRequest);
+            new RequestServiceImpl().notifyRequestStatusRq(notify, request.getId());
+        }
 
         return result;
     }
@@ -306,7 +312,7 @@ public class RequestService {
         logger.info("start");
 
         ArrayList<Request> requests = new ArrayList<>();
-//        try {
+
         String sql = "SELECT " +
                 "r.ID, r.REQUEST_UUID, r.CREATE_DATE, r.CREATE_DATETIME, r.CLIENT_CODE, r.COMMENT, r. STATUS, " +
                 "rsh.COMMENT COMMENT_STATUS, rsh.EVENT_DATETIME, rsh.USER_ACCOUNT_ID " +
@@ -335,9 +341,7 @@ public class RequestService {
             request.setLastUserAccountIdChangeRequestStatus(rs.getInt("USER_ACCOUNT_ID"));
             requests.add(request);
         }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+
         return requests;
     }
 

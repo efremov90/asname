@@ -2,11 +2,11 @@ package org.asname.service.clients;
 
 import org.asname.dao.clients.ClientDopofficeDAO;
 import org.asname.dao.users.UserAccountDAO;
-import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.audit.AuditOperType;
+import org.asname.db.connection.MySQLConnection;
+import org.asname.audit.model.AuditOperType;
 import org.asname.model.clients.ClientDopoffice;
 import org.asname.model.users.UserAccount;
-import org.asname.service.audit.AuditService;
+import org.asname.audit.service.AuditService;
 import org.asname.service.security.PermissionService;
 
 import java.sql.Connection;

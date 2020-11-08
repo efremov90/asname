@@ -14,8 +14,30 @@
           <element id="module-output" name="mq-one" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="mq-one-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="mq-one" />
+          </element>
           <element id="archive" name="core-1.0-SNAPSHOT.jar">
             <element id="module-output" name="core" />
+          </element>
+          <element id="library" level="project" name="Maven: org.asname:integration:1.0-SNAPSHOT" />
+          <element id="archive" name="db-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="db" />
+          </element>
+          <element id="archive" name="audit-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="audit" />
+          </element>
+          <element id="archive" name="mq-contract-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="mq-contract" />
+          </element>
+          <element id="archive" name="mq-log-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="mq-log" />
+          </element>
+          <element id="archive" name="utils-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="utils" />
+          </element>
+          <element id="archive" name="mq-send-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="mq-send" />
           </element>
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.13" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />

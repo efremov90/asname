@@ -1,7 +1,7 @@
 package org.asname.service.integration;
 
 import org.asname.dao.integration.WSLogDAO;
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.integration.WSLog;
 
 import java.sql.*;

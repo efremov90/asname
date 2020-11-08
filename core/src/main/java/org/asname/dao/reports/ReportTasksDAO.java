@@ -1,6 +1,6 @@
 package org.asname.dao.reports;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

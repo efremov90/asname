@@ -20,6 +20,12 @@
         <module>webapp</module>
         <module>ws-spring</module>
         <module>mq</module>
+        <module>audit</module>
+        <module>db</module>
+        <module>mq/mq-send</module>
+        <module>mq/mq-contract</module>
+        <module>mq/mq-log</module>
+        <module>mq/utils</module>
     </modules>
 
     <dependencies>

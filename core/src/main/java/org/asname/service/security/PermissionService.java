@@ -1,6 +1,6 @@
 package org.asname.service.security;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.security.Permissions;
 
 import java.sql.Connection;
@@ -29,6 +29,7 @@ public class PermissionService {
         switch (userAccountId) {
             case -1: //system
             case -2: //asname1
+            case -3: //asname2
                 return result = true;
         }
 

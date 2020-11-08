@@ -1,6 +1,6 @@
 package org.asname.dao.requests;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.requests.Request;
 
 import java.sql.*;
@@ -22,8 +22,9 @@ public class RequestDAO {
 
         Integer result = null;
 //        try {
-        String sql = "INSERT REQUESTS (REQUEST_UUID, CREATE_DATE, CREATE_DATETIME, CLIENT_CODE, STATUS, COMMENT) " +
-                "VALUES (?, ?, ?, ?, ?, ?); ";
+        String sql = "INSERT REQUESTS (REQUEST_UUID, CREATE_DATE, CREATE_DATETIME, CLIENT_CODE, STATUS, COMMENT, " +
+                "CREATE_SYSTEM_ID) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?); ";
         logger.info(request.toString());
         PreparedStatement st = conn.prepareStatement(sql);
 
@@ -33,6 +34,7 @@ public class RequestDAO {
         st.setString(4, request.getClientCode());
         st.setString(5, request.getRequestStatus().name());
         st.setString(6, request.getComment());
+        st.setInt(7,request.getCreateSystemId());
         st.executeUpdate();
 
         result = MySQLConnection.getLastInsertId();

@@ -1,6 +1,6 @@
 package org.asname.dao;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.security.Permission;
 import org.asname.model.security.Permissions;
 

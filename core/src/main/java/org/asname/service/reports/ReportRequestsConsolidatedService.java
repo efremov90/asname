@@ -2,7 +2,7 @@ package org.asname.service.reports;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.asname.dao.users.UserAccountDAO;
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.dto.reports.ReportRequestsConsolidatedDTO;
 import org.asname.model.clients.ClientTypeType;
 import org.asname.model.reports.FormatReportType;

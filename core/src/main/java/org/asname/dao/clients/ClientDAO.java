@@ -1,6 +1,6 @@
 package org.asname.dao.clients;
 
-import org.asname.dbConnection.MySQLConnection;
+import org.asname.db.connection.MySQLConnection;
 import org.asname.model.clients.Client;
 
 import java.sql.Connection;

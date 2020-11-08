@@ -1,18 +1,19 @@
 package org.asname.service;
 
 import org.asname.dao.TaskDAO;
-import org.asname.dbConnection.MySQLConnection;
-import org.asname.model.audit.AuditOperType;
+import org.asname.db.connection.MySQLConnection;
+import org.asname.audit.model.AuditOperType;
 import org.asname.model.tasks.Task;
 import org.asname.model.tasks.TaskStatusType;
 import org.asname.model.tasks.TaskType;
-import org.asname.service.audit.AuditService;
+import org.asname.audit.service.AuditService;
 
 import java.sql.*;
 import java.util.Date;
 import java.util.logging.Logger;
 
 import static org.asname.model.tasks.TaskStatusType.*;
+import static org.asname.audit.model.SystemType.ASNAME;
 
 public class TaskService {
 
@@ -76,7 +77,7 @@ public class TaskService {
 
         new AuditService().create(
                 AuditOperType.START_TASK,
-                -1,
+                ASNAME.getId(),
                 new Date(),
                 "",
                 taskId
@@ -110,7 +111,7 @@ public class TaskService {
 
         new AuditService().create(
                 AuditOperType.FINISH_TASK,
-                -1,
+                ASNAME.getId(),
                 new Date(),
                 "",
                 taskId
@@ -164,7 +165,7 @@ public class TaskService {
 
         new AuditService().create(
                 AuditOperType.ERROR_TASK,
-                -1,
+                ASNAME.getId(),
                 new Date(),
                 "",
                 taskId

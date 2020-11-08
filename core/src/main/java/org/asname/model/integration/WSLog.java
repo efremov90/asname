@@ -1,5 +1,7 @@
 package org.asname.model.integration;
 
+import org.asname.integration.utils.model.MethodType;
+
 import java.util.Date;
 
 public class WSLog {
