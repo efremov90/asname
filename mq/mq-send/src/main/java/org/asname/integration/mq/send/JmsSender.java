@@ -58,7 +58,7 @@ public class JmsSender {
                     return session.createTextMessage(finalText);
                 }
             });
-            createLogServiceMessageOk(rqUID, correlUID, textMessage, methodType, Destination, exception);
+            createLogServiceMessageOk(rqUID, correlUID, textMessage, methodType, "queue://"+Destination, exception);
 
 //        } catch (Exception e) {
 //            e.printStackTrace();
