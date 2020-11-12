@@ -1,6 +1,7 @@
 package org.asname.servlet.requests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.asname.audit.model.SystemType;
 import org.asname.dao.users.UserAccountDAO;
 import org.asname.dto.requests.GetRequestsRequestDTO;
 import org.asname.dto.requests.GetRequestsResponseDTO;
@@ -88,6 +89,8 @@ public class GetRequestsServlet extends HttpServlet {
                                 requestDTO.setLastDateTimeChangeRequestStatus(x.getLastDateTimeChangeRequestStatus().toString());
                                 requestDTO.setLastUserAccountIdChangeRequestStatus(x.getLastUserAccountIdChangeRequestStatus());
                                 requestDTO.setLastUserNameChangeRequestStatus(lastUserAccount.getFullName());
+//                                System.out.println(x.getId()+" "+x.getCreateSystemId());
+                                requestDTO.setCreateSystemName(SystemType.getSystemTypeById(x.getCreateSystemId()).getDescription());
                                 return requestDTO;
                             }
                     ).collect(Collectors.toCollection(() -> new ArrayList<RequestDTO>()));

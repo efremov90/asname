@@ -28,7 +28,7 @@ public class RequestDAO {
         logger.info(request.toString());
         PreparedStatement st = conn.prepareStatement(sql);
 
-        st.setString(1, request.getRequestUUID());
+        st.setString(1, request.getRequestUUID().toLowerCase());
         st.setDate(2, new Date(request.getCreateDate().getTime()));
         st.setString(3, new Timestamp(request.getCreateDateTime().getTime()).toString());
         st.setString(4, request.getClientCode());

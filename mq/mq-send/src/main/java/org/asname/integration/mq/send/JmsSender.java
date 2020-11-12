@@ -34,7 +34,7 @@ public class JmsSender {
     }
 
     private void createLogServiceMessageOk(String rqUID, String correlUID, String textMessage,
-                                           MethodType methodType) throws Exception {
+                                           MethodType methodType, String destination, Exception exception) throws Exception {
         MQLog mqLog = new MQLog();
         mqLog.setRqUID(rqUID);
         mqLog.setCorrelationUID(correlUID);
@@ -43,23 +43,25 @@ public class JmsSender {
         mqLog.setContent(new IntegrationService().transformXML(textMessage));
         mqLog.setMethod(methodType);
         mqLog.setStatus(StatusType.OK);
+        mqLog.setDestination(destination);
+        mqLog.setError(exception != null ? new IntegrationService().getExceptionString(exception) : null);
         new MQLogService().create(mqLog);
     }
 
-    public void sendMessage(String rqUID, String correlUID, final String textMessage, MethodType methodType) {
+    public void sendMessage(String rqUID, String correlUID, final String textMessage, MethodType methodType, Exception exception) throws Exception {
         logger.info("start");
 
-        try {
+//        try {
+            String finalText = new String(textMessage.getBytes("windows-1251"),"UTF-8");
             jmsTemplate.send(Destination, new MessageCreator() {
                 public Message createMessage(Session session) throws JMSException {
-                    return session.createTextMessage(textMessage);
+                    return session.createTextMessage(finalText);
                 }
             });
+            createLogServiceMessageOk(rqUID, correlUID, textMessage, methodType, Destination, exception);
 
-            createLogServiceMessageOk(rqUID, correlUID, textMessage, methodType);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

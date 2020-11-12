@@ -17,6 +17,7 @@ public class RequestDTO {
     private String LastDateTimeChangeRequestStatus;
     private int LastUserAccountIdChangeRequestStatus;
     private String LastUserNameChangeRequestStatus;
+    private String CreateSystemName;
 
     public RequestDTO() {
     }
@@ -139,5 +140,13 @@ public class RequestDTO {
 
     public void setLastUserNameChangeRequestStatus(String lastUserNameChangeRequestStatus) {
         LastUserNameChangeRequestStatus = lastUserNameChangeRequestStatus;
+    }
+
+    public String getCreateSystemName() {
+        return CreateSystemName;
+    }
+
+    public void setCreateSystemName(String createSystemName) {
+        CreateSystemName = createSystemName;
     }
 }

@@ -3,10 +3,13 @@ package org.asname.integration.mq.send;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 
+import java.util.logging.Logger;
+
 public class JmsConfigASNAME1 {
 
-    private static JmsTemplate jmsTemplate;
+    private Logger logger = Logger.getLogger(JmsConfigASNAME1.class.getName());
 
+    private static JmsTemplate jmsTemplate;
 
     private static String BROKER_URL = "tcp://localhost:61616";
     private static String BROKER_USERNAME = "admin";

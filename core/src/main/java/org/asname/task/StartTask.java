@@ -18,7 +18,8 @@ public class StartTask implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        //раскомментировать для запуска
+/*        this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         try {
             this.scheduledExecutorService.scheduleAtFixedRate(
                     new CloseRequestTaskService(),
@@ -27,7 +28,7 @@ public class StartTask implements ServletContextListener {
                     TimeUnit.SECONDS);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override

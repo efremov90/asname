@@ -8,10 +8,15 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
+import java.util.logging.Logger;
+
 @Configuration
 @EnableJms
-@ComponentScan(basePackages = "org.asname.integration.mq.mqone")
+@ComponentScan(basePackages = "org.asname.integration.mq.receive.mqone")
 public class JmsConfig {
+
+    private Logger logger = Logger.getLogger(JmsConfig.class.getName());
+
     String BROKER_URL = "tcp://localhost:61616";
     String BROKER_USERNAME = "admin";
     String BROKER_PASSWORD = "admin";

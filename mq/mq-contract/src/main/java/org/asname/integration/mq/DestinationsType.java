@@ -12,4 +12,8 @@ public enum DestinationsType {
     DestinationsType(String description) {
         Description = description;
     }
+
+    public String getDescription() {
+        return Description;
+    }
 }

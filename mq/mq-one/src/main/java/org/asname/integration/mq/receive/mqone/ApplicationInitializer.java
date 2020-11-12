@@ -7,8 +7,11 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import java.util.logging.Logger;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
+
+    private Logger logger = Logger.getLogger(ApplicationInitializer.class.getName());
 
     public void onStartup(ServletContext container) throws ServletException {
 

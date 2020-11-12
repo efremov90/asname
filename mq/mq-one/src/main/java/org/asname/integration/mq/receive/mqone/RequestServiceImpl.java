@@ -10,23 +10,27 @@ import org.asname.audit.service.AuditService;
 import org.asname.integration.utils.service.IntegrationService;
 import org.springframework.stereotype.Service;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import static org.asname.audit.model.SystemType.ASNAME2;
 
 @Service
 public class RequestServiceImpl implements RequestService {
 
-    protected final static String pathSchema = "mq/mq-contract/src/main/java/org/asname/integration/contract/requests/mq/Requests.xsd";
+    private Logger logger = Logger.getLogger(RequestServiceImpl.class.getName());
 
+    //C:\Users\NEO\.IntelliJIdea2019.3\system\tomcat
+    protected final static String pathSchema = "/Requests.xsd";
     @Override
     public void createRequestRq(CreateRequestRqType req) throws IOException {
+        Integer auditId = null;
+        Integer requestId = null;
         try {
-            Integer auditId = null;
             try {
-                new MQLogService().validateExistsMessage(req.getRqUID());
 
                 auditId = new AuditService().create(
                         AuditOperType.MQ_IN_MESSAGE,
@@ -47,7 +51,7 @@ public class RequestServiceImpl implements RequestService {
                 StatusType statusType = new StatusType();
                 statusType.setCode(0);
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().createRequestRs(res);
+                new org.asname.integration.mq.send.mqone.RequestServiceImpl().createRequestRs(res,null);
 
             } catch (Exception e) {
 
@@ -59,7 +63,7 @@ public class RequestServiceImpl implements RequestService {
                 statusType.setCode(-1);
                 statusType.setDescription(new IntegrationService().getExceptionString(e));
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().createRequestRs(res);
+                new org.asname.integration.mq.send.mqone.RequestServiceImpl().createRequestRs(res,e);
 
                 throw new Exception(e);
             }
@@ -72,7 +76,7 @@ public class RequestServiceImpl implements RequestService {
             request.setComment(req.getCreateRequest().getComment());
             request.setLastUserAccountIdChangeRequestStatus(ASNAME2.getId());
             request.setCreateSystemId(ASNAME2.getId());
-            Integer requestId = new org.asname.service.requests.RequestService().create(request,
+            requestId = new org.asname.service.requests.RequestService().create(request,
                     ASNAME2.getId());
 
             new RequestAuditsDAO().create(requestId, auditId);
@@ -85,18 +89,33 @@ public class RequestServiceImpl implements RequestService {
             notifyRequest.setRequestUUID(req.getCreateRequest().getRequestUUID());
             notifyRequest.setStatus(RequestStatusType.CREATED.name());
             notify.setNotifyRequestStatusRequest(notifyRequest);
+            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,requestId,null);
 
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
+                notify.setRqUID(UUID.randomUUID().toString());
+                notify.setCorrelationUID(req.getRqUID());
+                notify.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
+                NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+                notifyRequest.setRequestUUID(req.getCreateRequest().getRequestUUID());
+                notifyRequest.setStatus(RequestStatusType.ERROR.name());
+                notifyRequest.setComment(e.getMessage());
+                notify.setNotifyRequestStatusRequest(notifyRequest);
+                new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,-1,e);
+            } catch (DatatypeConfigurationException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
     @Override
     public void cancelRequestRq(CancelRequestRqType req) throws IOException {
+        Integer auditId = null;
+        Integer requestId = null;
         try {
-            Integer auditId = null;
             try {
-                new MQLogService().validateExistsMessage(req.getRqUID());
 
                 auditId = new AuditService().create(
                         AuditOperType.MQ_IN_MESSAGE,
@@ -117,7 +136,7 @@ public class RequestServiceImpl implements RequestService {
                 StatusType statusType = new StatusType();
                 statusType.setCode(0);
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().cancelRequestRs(res);
+                new org.asname.integration.mq.send.mqone.RequestServiceImpl().cancelRequestRs(res,null);
 
             } catch (Exception e) {
 
@@ -129,12 +148,12 @@ public class RequestServiceImpl implements RequestService {
                 statusType.setCode(-1);
                 statusType.setDescription(new IntegrationService().getExceptionString(e));
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().cancelRequestRs(res);
+                new org.asname.integration.mq.send.mqone.RequestServiceImpl().cancelRequestRs(res,e);
 
                 throw new Exception(e);
             }
 
-            Integer requestId =
+            requestId =
                     new org.asname.service.requests.RequestService().getRequestIdByUUID(req.getCancelRequest().getRequestUUID());
             if (requestId != null) new RequestAuditsDAO().create(requestId, auditId);
 
@@ -147,10 +166,26 @@ public class RequestServiceImpl implements RequestService {
             NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
             notifyRequest.setRequestUUID(req.getCancelRequest().getRequestUUID());
             notifyRequest.setStatus(RequestStatusType.CANCELED.name());
+            notifyRequest.setComment(new org.asname.service.requests.RequestService().getRequestByUUID(req.getCancelRequest().getRequestUUID()).getCommentRequestStatus());
             notify.setNotifyRequestStatusRequest(notifyRequest);
+            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,requestId,null);
 
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
+                notify.setRqUID(UUID.randomUUID().toString());
+                notify.setCorrelationUID(req.getRqUID());
+                notify.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
+                NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+                notifyRequest.setRequestUUID(req.getCancelRequest().getRequestUUID());
+                notifyRequest.setStatus(RequestStatusType.ERROR.name());
+                notifyRequest.setComment(e.getMessage());
+                notify.setNotifyRequestStatusRequest(notifyRequest);
+                new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,-1,e);
+            } catch (DatatypeConfigurationException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

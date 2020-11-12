@@ -57,6 +57,13 @@
 		<xs:sequence>
 			<xs:element name="RequestUUID" type="UUID36Type"/>
 			<xs:element name="Status" type="RequestStatusType"/>
+			<xs:element name="Comment" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CreateRequestRqType">
@@ -112,6 +119,7 @@
 			<xs:pattern value="CREATED"/>
 			<xs:pattern value="CANCELED"/>
 			<xs:pattern value="CLOSED"/>
+			<xs:pattern value="ERROR"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

@@ -46,9 +46,6 @@ public class GetPermissionsServlet extends HttpServlet {
             out.close();
             return;
         } catch (Exception e) {
-            /*logger.throwing(GetPermissionsServlet.class.getName(),
-                    GetPermissionsServlet.class.getEnclosingMethod().getName(),
-                    e);*/
             e.printStackTrace();
         }
         return;

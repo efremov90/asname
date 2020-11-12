@@ -3,6 +3,7 @@ package org.asname.integration.mq.log.dao;
 import org.asname.db.connection.MySQLConnection;
 import org.asname.integration.mq.log.model.MQLog;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class MQLogDAO {
         conn = MySQLConnection.getConnection();
     }
 
-    public Integer create(MQLog mqLog) throws SQLException {
+    public Integer create(MQLog mqLog) throws SQLException, UnsupportedEncodingException {
 
         Integer result = null;
 
@@ -29,12 +30,12 @@ public class MQLogDAO {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, mqLog.getRqUID());
-        st.setString(2, mqLog.getCorrelationUID());
+        st.setString(1, mqLog.getRqUID().toLowerCase());
+        st.setString(2, mqLog.getCorrelationUID() != null ? mqLog.getCorrelationUID().toLowerCase() : null);
         st.setString(3,
                 new Timestamp(mqLog.getCreateDatetime().getTime()).toString());
         st.setString(4, mqLog.getDirection().name());
-        st.setString(5, mqLog.getContent());
+        st.setString(5, new String(mqLog.getContent().getBytes("windows-1251"),"UTF-8"));
         st.setString(6, mqLog.getMethod().name());
         st.setString(7, mqLog.getStatus().name());
         st.setString(8, mqLog.getDestination());

@@ -11,7 +11,6 @@ import org.asname.audit.model.AuditOperType;
 import org.asname.integration.contract.requests.mq.NotifyRequestStatusRequestType;
 import org.asname.integration.contract.requests.mq.NotifyRequestStatusRqType;
 import org.asname.integration.mq.send.mqone.RequestServiceImpl;
-import org.asname.integration.utils.service.IntegrationService;
 import org.asname.model.requests.Request;
 import org.asname.model.requests.RequestStatusHistory;
 import org.asname.model.requests.RequestStatusType;
@@ -25,13 +24,12 @@ import org.asname.service.clients.ClientService;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import static org.asname.audit.model.SystemType.ASNAME1;
+import static org.asname.audit.model.SystemType.ASNAME2;
 import static org.asname.model.configure.Configures.CANCEL_REQUEST_INTERVAL;
 import static org.asname.model.security.Permissions.*;
 import static org.asname.model.requests.RequestStatusType.*;
@@ -91,13 +89,13 @@ public class RequestService {
         Request request = null;
 
         String sql = "SELECT " +
-                "r.ID, r.REQUEST_UUID, r.CREATE_DATE, r.CREATE_DATETIME, r.CLIENT_CODE, r.COMMENT, r. STATUS, " +
-                "rsh.EVENT_DATETIME, rsh.USER_ACCOUNT_ID " +
+                "r.ID, r.REQUEST_UUID, r.CREATE_DATE, r.CREATE_DATETIME, r.CLIENT_CODE, r.COMMENT, r.STATUS, " +
+                "rsh.COMMENT STATUS_COMMENT, r.CREATE_SYSTEM_ID, rsh.EVENT_DATETIME, rsh.USER_ACCOUNT_ID " +
                 "FROM REQUESTS r " +
                 "LEFT JOIN REQUEST_STATUS_HISTORY rsh ON r.ID = rsh.REQUEST_ID AND rsh.IS_LAST_STATUS = 1 " +
                 "WHERE 1=1 " +
                 (requestId != -1 ? " AND r.ID = " + requestId : "") +
-                (requestUUID != null ? " AND r.REQUEST_UUID = " + "'" + requestUUID + "'" : "");
+                (requestUUID != null ? " AND r.REQUEST_UUID = " + "'" + requestUUID.toLowerCase() + "'" : "");
 
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -111,6 +109,8 @@ public class RequestService {
             request.setClientCode(rs.getNString("client_code"));
             request.setComment(rs.getNString("comment"));
             request.setRequestStatus(RequestStatusType.valueOf(rs.getNString("status")));
+            request.setCommentRequestStatus(rs.getNString("STATUS_COMMENT"));
+            request.setCreateSystemId(rs.getInt("create_system_id"));
             request.setLastDateTimeChangeRequestStatus(Timestamp.valueOf(rs.getNString("event_datetime")));
             request.setLastUserAccountIdChangeRequestStatus(rs.getInt("user_account_id"));
         }
@@ -199,7 +199,7 @@ public class RequestService {
         logger.info("start");
 
         boolean result = false;
-        boolean isValid = true;
+        boolean dontExecute = true;
 
         UserAccount userAccount = new UserAccountDAO().getUserAccountById(userAccountId);
         if (!new PermissionService().isPermission(userAccountId, REQUESTS_CANCEL))
@@ -213,12 +213,12 @@ public class RequestService {
         Request request = new RequestService().getRequestByUUID(requestUUID);
 
         if (getRequestByUUID(requestUUID).getRequestStatus() != CREATED)
-            if (request.getCreateSystemId() != ASNAME1.getId())
+            if (request.getCreateSystemId() != ASNAME2.getId())
                 throw new Exception(String.format("Заявка в статусе %s.",
                         request.getRequestStatus().getDescription()));
-            else isValid = false;
+            else dontExecute = false;
 
-        if (isValid) {
+        if (dontExecute) {
 
             conn.setAutoCommit(false);
             request.setRequestStatus(CANCELED);
@@ -250,13 +250,14 @@ public class RequestService {
             conn.setAutoCommit(true);
         }
 
-        if ((request.getCreateSystemId() == ASNAME1.getId()) && (userAccountId != ASNAME1.getId())) {
+        if ((request.getCreateSystemId() == ASNAME2.getId()) && (userAccountId != ASNAME2.getId())) {
             NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
             NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
             notifyRequest.setRequestUUID(requestUUID);
             notifyRequest.setStatus(request.getRequestStatus().name());
+            notifyRequest.setComment(comment);
             notify.setNotifyRequestStatusRequest(notifyRequest);
-            new RequestServiceImpl().notifyRequestStatusRq(notify, request.getId());
+            new RequestServiceImpl().notifyRequestStatusRq(notify, request.getId(),null);
         }
 
         return result;
@@ -315,7 +316,7 @@ public class RequestService {
 
         String sql = "SELECT " +
                 "r.ID, r.REQUEST_UUID, r.CREATE_DATE, r.CREATE_DATETIME, r.CLIENT_CODE, r.COMMENT, r. STATUS, " +
-                "rsh.COMMENT COMMENT_STATUS, rsh.EVENT_DATETIME, rsh.USER_ACCOUNT_ID " +
+                "r.CREATE_SYSTEM_ID, rsh.COMMENT COMMENT_STATUS, rsh.EVENT_DATETIME, rsh.USER_ACCOUNT_ID " +
                 "FROM REQUESTS r " +
                 "LEFT JOIN REQUEST_STATUS_HISTORY rsh ON r.ID = rsh.REQUEST_ID AND rsh.IS_LAST_STATUS = 1 " +
                 "WHERE 1=1 " +
@@ -336,6 +337,7 @@ public class RequestService {
             request.setClientCode(rs.getNString("client_code"));
             request.setComment(rs.getNString("comment"));
             request.setRequestStatus(RequestStatusType.valueOf(rs.getNString("status")));
+            request.setCreateSystemId(rs.getInt("create_system_id"));
             request.setCommentRequestStatus(rs.getNString("COMMENT_STATUS"));
             request.setLastDateTimeChangeRequestStatus(Timestamp.valueOf(rs.getNString("EVENT_DATETIME")));
             request.setLastUserAccountIdChangeRequestStatus(rs.getInt("USER_ACCOUNT_ID"));
@@ -348,16 +350,9 @@ public class RequestService {
     public ArrayList<Audit> getAudits(int requestId) throws SQLException {
         logger.info("start");
 
-//        try {
         String sql = "INNER JOIN REQUEST_XREF_AUDIT rxa ON a.ID = rxa.AUDIT_ID " +
                 "WHERE rxa.REQUEST_ID = " + requestId;
 
-        /*PreparedStatement st = conn.prepareStatement(sql);
-        st.setInt(1, requestId);*/
-
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
         return new AuditService().getAudits(sql);
     }
 }

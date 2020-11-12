@@ -11,8 +11,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.util.logging.Logger;
 
 public class MessageConverter {
@@ -24,10 +24,13 @@ public class MessageConverter {
 
     private Logger logger = Logger.getLogger(MessageConverter.class.getName());
 
-    public MessageConverter(Object obj, String pathSchema) throws JAXBException, SAXException {
+    public MessageConverter(Object obj, String pathSchema) throws JAXBException, SAXException, MalformedURLException {
+        logger.info("start");
+        System.out.println(getClass().getResource(pathSchema));
+
         this.obj = obj;
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = sf.newSchema(new File(pathSchema));
+        Schema schema = sf.newSchema(getClass().getResource(pathSchema));
         jaxbContext = JAXBContext.newInstance(this.obj.getClass());
         jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setSchema(schema);
@@ -36,22 +39,22 @@ public class MessageConverter {
         jaxbUnmarshaller.setSchema(schema);
     }
 
-    public String marshal(Object obj) {
+    public String marshal(Object obj) throws JAXBException {
         OutputStream stream = new ByteArrayOutputStream();
-        try {
+//        try {
             jaxbMarshaller.marshal(obj, stream);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+//        } catch (JAXBException e) {
+//            e.printStackTrace();
+//        }
         return stream.toString();
     }
 
-    public Object unmarshal(String objectAsString) {
-        try {
+    public Object unmarshal(String objectAsString) throws JAXBException {
+//        try {
             return (Object) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(objectAsString.getBytes()));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return null;
+//        } catch (JAXBException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 }

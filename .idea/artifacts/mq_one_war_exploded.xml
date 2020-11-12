@@ -20,7 +20,6 @@
           <element id="archive" name="core-1.0-SNAPSHOT.jar">
             <element id="module-output" name="core" />
           </element>
-          <element id="library" level="project" name="Maven: org.asname:integration:1.0-SNAPSHOT" />
           <element id="archive" name="db-1.0-SNAPSHOT.jar">
             <element id="module-output" name="db" />
           </element>
