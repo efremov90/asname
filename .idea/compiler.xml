@@ -18,9 +18,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mq-one" />
         <module name="ws-two" />
         <module name="mq-contract" />
-        <module name="mq-one" />
+        <module name="mvc-contract" />
         <module name="audit" />
         <module name="utils" />
         <module name="ws-contract" />
@@ -36,6 +37,7 @@
       <module name="integration" target="1.8" />
       <module name="log-mq" target="1.8" />
       <module name="log-ws" target="1.8" />
+      <module name="mvc-controllers" target="1.8" />
       <module name="sender" target="1.8" />
       <module name="spring" target="1.8" />
       <module name="test1" target="1.8" />

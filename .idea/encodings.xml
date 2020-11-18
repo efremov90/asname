@@ -17,6 +17,9 @@
     <file url="file://$PROJECT_DIR$/mq/mq-send/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/utils/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/utils/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc/mvc-contract/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mvc/mvc-contract/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webapp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ws-spring/ws-contract/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ws-spring/ws-contract/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ws-spring/ws-one/src/main/java" charset="UTF-8" />

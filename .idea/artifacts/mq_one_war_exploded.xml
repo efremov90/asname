@@ -71,11 +71,10 @@
           <element id="library" level="project" name="Maven: org.olap4j:olap4j:0.9.7.309-JS-3" />
           <element id="library" level="project" name="Maven: org.apache.poi:poi:3.10.1" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.5" />
-          <element id="library" level="project" name="Maven: org.springframework.ws:spring-ws-core:2.4.3.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.ws:spring-xml:2.4.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.ws:spring-ws-core:2.4.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.ws:spring-xml:2.4.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.2.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-oxm:4.2.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.2.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.jdom:jdom2:2.0.6" />
           <element id="library" level="project" name="Maven: jaxen:jaxen:1.2.0" />
@@ -115,6 +114,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.3.21.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.21.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.21.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.21.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

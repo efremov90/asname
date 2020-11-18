@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.logging.Logger;
 
-@WebServlet(urlPatterns = {"/editClient"})
+//@WebServlet(urlPatterns = {"/editClient"})
 public class EditClientServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6011853190168045751L;

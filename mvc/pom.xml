@@ -9,15 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mq</artifactId>
+    <artifactId>mvc</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>mq-one</module>
-        <module>mq-send</module>
-        <module>mq-contract</module>
-        <module>mq-log</module>
-        <module>utils</module>
+        <module>mvc-contract</module>
     </modules>
+
 
 </project>
