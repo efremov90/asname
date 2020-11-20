@@ -13,7 +13,6 @@ import org.asname.service.clients.ClientService;
 import org.asname.service.servlet.ErrorDTOService;
 import org.asname.service.security.PermissionService;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 
 import static org.asname.model.security.Permissions.CLIENTS_VIEW;
 
-@WebServlet(urlPatterns = {"/getClients"})
+//@WebServlet(urlPatterns = {"/getClients"})
 public class GetClientsServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6959500293773959824L;

@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.logging.Logger;
 
-@WebServlet(urlPatterns = {"/getClient"})
+//@WebServlet(urlPatterns = {"/getClient"})
 public class GetClientServlet extends HttpServlet {
 
     private static final long serialVersionUID = 7980928199907184355L;

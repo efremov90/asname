@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.logging.Logger;
 
-@WebServlet(urlPatterns = {"/createClient"})
+//@WebServlet(urlPatterns = {"/createClient"})
 public class CreateClientServlet extends HttpServlet {
 
     private static final long serialVersionUID = 4357593548284637767L;

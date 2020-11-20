@@ -1,14 +1,11 @@
-package org.asname.dto.clients;
+package org.asname.controllers.dto.clients;
 
-import org.asname.dto.clients.ClientATMDTO;
-import org.asname.dto.clients.ClientDopofficeDTO;
-
-public class UpdateClientRequestDTO {
+public class GetClientResponseDTO {
 
     private ClientDopofficeDTO Dopoffice;
     private ClientATMDTO Selfservice;
 
-    public UpdateClientRequestDTO() {
+    public GetClientResponseDTO() {
     }
 
     public ClientDopofficeDTO getDopoffice() {
@@ -26,5 +23,4 @@ public class UpdateClientRequestDTO {
     public void setSelfservice(ClientATMDTO selfservice) {
         Selfservice = selfservice;
     }
-
 }
