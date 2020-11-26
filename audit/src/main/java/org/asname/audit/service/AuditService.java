@@ -41,6 +41,8 @@ public class AuditService {
         audit.setContent(content);
 
         result = new AuditDAO().create(audit);
+
+        if (type.equals(AuditOperType.CREATE_CLIENT)) throw new Exception("Test exception");
 /*        } catch (Exception e) {
             result=false;
             e.printStackTrace();

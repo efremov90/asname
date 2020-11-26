@@ -4,11 +4,18 @@ import org.asname.dao.clients.ClientATMDAO;
 import org.asname.dao.users.UserAccountDAO;
 import org.asname.db.connection.MySQLConnection;
 import org.asname.audit.model.AuditOperType;
+import org.asname.entity.clients.Client;
+import org.asname.entity.clients.ClientTypeType;
 import org.asname.model.clients.ATMTypeType;
 import org.asname.model.clients.ClientATM;
 import org.asname.model.users.UserAccount;
 import org.asname.audit.service.AuditService;
+import org.asname.repository.ClientATMRepository;
 import org.asname.service.security.PermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +26,11 @@ import java.util.logging.Logger;
 import static org.asname.model.security.Permissions.CLIENTS_CREATE;
 import static org.asname.model.security.Permissions.CLIENTS_EDIT;
 
+@Service
 public class ClientATMService {
+
+    @Autowired
+    ClientATMRepository clientATMRepository;
 
     private Connection conn;
     private Logger logger = Logger.getLogger(ClientATMService.class.getName());
@@ -30,7 +41,9 @@ public class ClientATMService {
         conn = MySQLConnection.getConnection();
     }
 
+    @Transactional
     public Integer create(ClientATM client, int userAccountId) throws Exception {
+
         logger.info("start");
 
         Integer result = null;
@@ -43,9 +56,21 @@ public class ClientATMService {
                     CLIENTS_CREATE.name()));
         new ClientService().validateExistsClient(client.getClientCode());
 
-        conn.setAutoCommit(false);
+//        conn.setAutoCommit(false);
 
-        result = new ClientATMDAO().create(client);
+        org.asname.entity.clients.ClientATM clientATM = new org.asname.entity.clients.ClientATM();
+
+        clientATM.setClientCode(client.getClientCode());
+        clientATM.setClientName(client.getClientName());
+        clientATM.setAddress(client.getAddress());
+        clientATM.setClientType(ClientTypeType.valueOf(client.getClientType().name()));
+        clientATM.setCloseDate(client.getCloseDate());
+        clientATM.setId(client.getId());
+        clientATM.setAtmType(org.asname.entity.clients.ATMTypeType.valueOf(client.getAtmType().name()));
+
+        clientATMRepository.save(clientATM);
+
+/*        result = new ClientATMDAO().create(client);
 
         new AuditService().create(
                 AuditOperType.CREATE_CLIENT,
@@ -60,10 +85,10 @@ public class ClientATMService {
                         client.getAtmType().getDescrition(),
                         client.getCloseDate()),
                 client.getClientCode()
-        );
+        );*/
 
-        conn.commit();
-        conn.setAutoCommit(true);
+//        conn.commit();
+//        conn.setAutoCommit(true);
 /*        } catch (Exception e) {
             result=false;
             e.printStackTrace();
@@ -72,6 +97,7 @@ public class ClientATMService {
         return result;
     }
 
+    @Transactional
     public boolean edit(ClientATM client, int userAccountId) throws Exception {
         logger.info("start");
 
@@ -86,7 +112,7 @@ public class ClientATMService {
 
         ClientATM currentClient = new ClientATMService().getClientByCode(client.getClientCode());
 
-        conn.setAutoCommit(false);
+//        conn.setAutoCommit(false);
 
         result = new ClientATMDAO().edit(client);
 
@@ -115,8 +141,8 @@ public class ClientATMService {
                 client.getClientCode()
         );
 
-        conn.commit();
-        conn.setAutoCommit(true);
+//        conn.commit();
+//        conn.setAutoCommit(true);
         /*} catch (Exception e) {
             result=false;
             e.printStackTrace();
@@ -139,7 +165,7 @@ public class ClientATMService {
 
         PreparedStatement st = conn.prepareStatement(sql);
         st.setString(1, clientCode);
-        st.setInt(2, 2);
+        st.setInt(2, 1);
         ResultSet rs = st.executeQuery();
 
         if (rs.next()) {

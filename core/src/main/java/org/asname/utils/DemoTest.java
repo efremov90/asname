@@ -2,14 +2,7 @@ package org.asname.utils;
 
 //import org.asname.integration.requests.CancelRequestRqType;
 
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-        import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-        import java.io.*;
-        import java.util.UUID;
+import org.asname.entity.clients.ClientDopoffice;
 
 public class DemoTest {
     public static void main(String[] args) throws Exception {
@@ -92,6 +85,14 @@ public class DemoTest {
         /*MessageConverter messageConverter = new MessageConverter(new CancelRequestRqType(),
                 "core/src/main/java/org/asname/integration/requests/ws/Requests.xsd");
         messageConverter.unmarshal(str);*/
+
+        ClientDopoffice client = new ClientDopoffice();
+        client.setClientCode("2008");
+        client.setClientName("N 2008");
+//        client.setAtmType(ATMTypeType.valueOf("ATM"));
+        client.setAddress("A 2008");
+        client.setCloseDate(null);
+//        new ClientRepository().findByClientCode("1001");
     }
 
 }

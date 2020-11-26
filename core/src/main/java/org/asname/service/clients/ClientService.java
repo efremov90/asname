@@ -3,6 +3,7 @@ package org.asname.service.clients;
 import org.asname.db.connection.MySQLConnection;
 import org.asname.model.clients.Client;
 import org.asname.model.clients.ClientTypeType;
+import org.hibernate.Transaction;
 
 import java.sql.*;
 import java.util.ArrayList;

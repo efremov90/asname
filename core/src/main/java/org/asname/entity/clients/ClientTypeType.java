@@ -1,4 +1,4 @@
-package org.asname.model.clients;
+package org.asname.entity.clients;
 
 public enum ClientTypeType {
     DOPOFFICE(0, "ВСП"),

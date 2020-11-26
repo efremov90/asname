@@ -12,14 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 import static org.asname.model.configure.Configures.CLOSE_REQUEST_INTERVAL;
 
-@WebListener
+//@WebListener
 public class StartTask implements ServletContextListener {
     private ScheduledExecutorService scheduledExecutorService;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        //раскомментировать для запуска
-/*        this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         try {
             this.scheduledExecutorService.scheduleAtFixedRate(
                     new CloseRequestTaskService(),
@@ -28,7 +27,7 @@ public class StartTask implements ServletContextListener {
                     TimeUnit.SECONDS);
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override

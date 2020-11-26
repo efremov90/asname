@@ -131,7 +131,7 @@ public class ClientDopofficeService {
 
         PreparedStatement st = conn.prepareStatement(sql);
         st.setString(1, clientCode);
-        st.setInt(2, 1);
+        st.setInt(2, 0);
         ResultSet rs = st.executeQuery();
 
         if (rs.next()) {

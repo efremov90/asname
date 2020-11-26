@@ -13,6 +13,7 @@ import org.asname.service.clients.ClientService;
 import org.asname.service.servlet.ErrorDTOService;
 import org.asname.service.security.PermissionService;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
