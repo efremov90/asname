@@ -9,40 +9,40 @@ public class ClientATM extends Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     @Column(name = "client_id", nullable = false)
-    private long ClientId;
+    private long clientId;
 
     @Column(name = "atm_type", length = 15, nullable = false)
     @Enumerated(EnumType.STRING)
-    private ATMTypeType AtmType;
+    private ATMTypeType atmType;
 
     public ClientATM() {
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
 
     public long getClientId() {
-        return ClientId;
+        return clientId;
     }
 
     public void setClientId(long clientId) {
-        ClientId = clientId;
+        this.clientId = clientId;
     }
 
     public ATMTypeType getAtmType() {
-        return AtmType;
+        return atmType;
     }
 
     public void setAtmType(ATMTypeType atmType) {
-        AtmType = atmType;
+        this.atmType = atmType;
     }
 }

@@ -15,7 +15,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext container) throws ServletException {
 
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(MvcConfig.class);
+        ctx.register(MvcConfig.class, JpaConfig.class);
         ctx.setServletContext(container);
         ServletRegistration.Dynamic servlet = container.addServlet("SpringDispatcher", new DispatcherServlet(ctx));
         servlet.setLoadOnStartup(1);

@@ -4,7 +4,6 @@ import org.asname.dao.clients.ClientATMDAO;
 import org.asname.dao.users.UserAccountDAO;
 import org.asname.db.connection.MySQLConnection;
 import org.asname.audit.model.AuditOperType;
-import org.asname.entity.clients.Client;
 import org.asname.entity.clients.ClientTypeType;
 import org.asname.model.clients.ATMTypeType;
 import org.asname.model.clients.ClientATM;
@@ -13,6 +12,7 @@ import org.asname.audit.service.AuditService;
 import org.asname.repository.ClientATMRepository;
 import org.asname.service.security.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,14 +26,17 @@ import java.util.logging.Logger;
 import static org.asname.model.security.Permissions.CLIENTS_CREATE;
 import static org.asname.model.security.Permissions.CLIENTS_EDIT;
 
+@Component
 @Service
+@ComponentScan("org.asname.repository")
 public class ClientATMService {
-
-    @Autowired
-    ClientATMRepository clientATMRepository;
 
     private Connection conn;
     private Logger logger = Logger.getLogger(ClientATMService.class.getName());
+
+
+    @Autowired
+    ClientATMRepository<org.asname.entity.clients.ClientATM> clientATMRepository;
 
     public ClientATMService() {
         logger.info("start");

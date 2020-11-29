@@ -10,50 +10,50 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     @Column(name = "client_code", length = 10, unique = true, nullable = false)
-    private String ClientCode;
+    protected String clientCode;
 
     @Column(name = "client_name", length = 50, nullable = false)
-    private String ClientName;
+    private String clientName;
 
     @Column(name = "client_type_id", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private ClientTypeType clientType;
 
     @Column(name = "address")
-    private String Address;
+    private String address;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "close_date")
-    private Date CloseDate;
+    private Date closeDate;
 
     public Client() {
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getClientCode() {
-        return ClientCode;
+        return clientCode;
     }
 
     public void setClientCode(String clientCode) {
-        ClientCode = clientCode;
+        this.clientCode = clientCode;
     }
 
     public String getClientName() {
-        return ClientName;
+        return clientName;
     }
 
     public void setClientName(String clientName) {
-        ClientName = clientName;
+        this.clientName = clientName;
     }
 
     public ClientTypeType getClientType() {
@@ -65,18 +65,18 @@ public class Client {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public Date getCloseDate() {
-        return CloseDate;
+        return closeDate;
     }
 
     public void setCloseDate(Date closeDate) {
-        CloseDate = closeDate;
+        this.closeDate = closeDate;
     }
 }
