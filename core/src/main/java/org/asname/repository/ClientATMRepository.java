@@ -5,10 +5,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Component
-@Repository
+//@Component
+//@Repository
 public interface ClientATMRepository<C> extends CrudRepository<ClientATM,Long> {
 
-   ClientATM findByClientCode(String clientCode);
+//   ClientATM findByClientCode(String clientCode);
 
 }

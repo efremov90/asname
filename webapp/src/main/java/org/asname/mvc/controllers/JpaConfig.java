@@ -15,14 +15,14 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@Configuration
+/*@Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"org.asname.entity.*","org.asname.service.*"})
-@EnableJpaRepositories("org.asname.repository")
+@EnableJpaRepositories("org.asname.repository")*/
 public class JpaConfig {
 
 
-    private static final String PROP_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+/*    private static final String PROP_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
     private static final String PROP_DATABASE_USERNAME = "root";
     private static final String PROP_DATABASE_PASSWORD = "admin";
     private static final String PROP_DATABASE_URL = "jdbc:mysql://localhost:3306/crud?serverTimezone=Europe/Moscow";
@@ -68,5 +68,5 @@ public class JpaConfig {
         properties.put("hibernate.show_sql", PROP_HIBERNATE_SHOW_SQL);
 
         return properties;
-    }
+    }*/
 }

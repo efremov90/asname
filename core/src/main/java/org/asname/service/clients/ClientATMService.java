@@ -26,17 +26,17 @@ import java.util.logging.Logger;
 import static org.asname.model.security.Permissions.CLIENTS_CREATE;
 import static org.asname.model.security.Permissions.CLIENTS_EDIT;
 
-@Component
+/*@Component
 @Service
-@ComponentScan("org.asname.repository")
+@ComponentScan("org.asname.repository")*/
 public class ClientATMService {
 
     private Connection conn;
     private Logger logger = Logger.getLogger(ClientATMService.class.getName());
 
 
-    @Autowired
-    ClientATMRepository<org.asname.entity.clients.ClientATM> clientATMRepository;
+    /*@Autowired
+    ClientATMRepository<org.asname.entity.clients.ClientATM> clientATMRepository;*/
 
     public ClientATMService() {
         logger.info("start");
@@ -44,7 +44,7 @@ public class ClientATMService {
         conn = MySQLConnection.getConnection();
     }
 
-    @Transactional
+//    @Transactional
     public Integer create(ClientATM client, int userAccountId) throws Exception {
 
         logger.info("start");
@@ -59,21 +59,21 @@ public class ClientATMService {
                     CLIENTS_CREATE.name()));
         new ClientService().validateExistsClient(client.getClientCode());
 
-//        conn.setAutoCommit(false);
+        conn.setAutoCommit(false);
 
-        org.asname.entity.clients.ClientATM clientATM = new org.asname.entity.clients.ClientATM();
+//        org.asname.entity.clients.ClientATM clientATM = new org.asname.entity.clients.ClientATM();
+//
+//        clientATM.setClientCode(client.getClientCode());
+//        clientATM.setClientName(client.getClientName());
+//        clientATM.setAddress(client.getAddress());
+//        clientATM.setClientType(ClientTypeType.valueOf(client.getClientType().name()));
+//        clientATM.setCloseDate(client.getCloseDate());
+//        clientATM.setId(client.getId());
+//        clientATM.setAtmType(org.asname.entity.clients.ATMTypeType.valueOf(client.getAtmType().name()));
 
-        clientATM.setClientCode(client.getClientCode());
-        clientATM.setClientName(client.getClientName());
-        clientATM.setAddress(client.getAddress());
-        clientATM.setClientType(ClientTypeType.valueOf(client.getClientType().name()));
-        clientATM.setCloseDate(client.getCloseDate());
-        clientATM.setId(client.getId());
-        clientATM.setAtmType(org.asname.entity.clients.ATMTypeType.valueOf(client.getAtmType().name()));
+//        clientATMRepository.save(clientATM);
 
-        clientATMRepository.save(clientATM);
-
-/*        result = new ClientATMDAO().create(client);
+        result = new ClientATMDAO().create(client);
 
         new AuditService().create(
                 AuditOperType.CREATE_CLIENT,
@@ -88,10 +88,10 @@ public class ClientATMService {
                         client.getAtmType().getDescrition(),
                         client.getCloseDate()),
                 client.getClientCode()
-        );*/
+        );
 
-//        conn.commit();
-//        conn.setAutoCommit(true);
+        conn.commit();
+        conn.setAutoCommit(true);
 /*        } catch (Exception e) {
             result=false;
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class ClientATMService {
         return result;
     }
 
-    @Transactional
+//    @Transactional
     public boolean edit(ClientATM client, int userAccountId) throws Exception {
         logger.info("start");
 
@@ -115,7 +115,7 @@ public class ClientATMService {
 
         ClientATM currentClient = new ClientATMService().getClientByCode(client.getClientCode());
 
-//        conn.setAutoCommit(false);
+        conn.setAutoCommit(false);
 
         result = new ClientATMDAO().edit(client);
 
@@ -144,8 +144,8 @@ public class ClientATMService {
                 client.getClientCode()
         );
 
-//        conn.commit();
-//        conn.setAutoCommit(true);
+        conn.commit();
+        conn.setAutoCommit(true);
         /*} catch (Exception e) {
             result=false;
             e.printStackTrace();
