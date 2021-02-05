@@ -1,0 +1,8 @@
+<sch:CancelRequestRq xmlns:sch="http://org.asname.requests/schemas">
+  <RqUID>206757a0-162c-4c30-a5c8-dfe8a1a1f433</RqUID>
+  <RqTm>2008-09-29T05:49:45</RqTm>
+  <CancelRequest>
+    <RequestUUID>106757a0-162c-4c30-a5c8-dfe8a1a1f428</RequestUUID>
+    <Comment>string</Comment>
+  </CancelRequest>
+</sch:CancelRequestRq>

@@ -1,0 +1,11 @@
+<sch:CreateRequestRq xmlns:sch="http://org.asname.requests/schemas">
+  <RqUID>106757a0-162c-4c30-a5c8-dfe8a1a1f428</RqUID>
+  <RqTm>2020-11-08T05:49:45</RqTm>
+  <!--Optional:-->
+  <CreateRequest>
+    <RequestUUID>106757a0-162c-4c30-a5c8-dfe8a1a1f428</RequestUUID>
+    <CreateDate>2020-11-08</CreateDate>
+    <ClientCode>1002</ClientCode>
+    <Comment>string</Comment>
+  </CreateRequest>
+</sch:CreateRequestRq>
