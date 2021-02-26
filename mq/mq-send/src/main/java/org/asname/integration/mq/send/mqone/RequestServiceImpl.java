@@ -49,7 +49,7 @@ public class RequestServiceImpl implements RequestService {
 //        try {
         jmsSender.sendMessage(res.getRqUID(), res.getCorrelationUID(),
                     new MessageConverter(new CancelRequestRsType(), pathSchema).marshal(res),
-                    MethodType.CreateRequestRs,
+                    MethodType.CancelRequestRs,
                 exception);
 //        } catch (JAXBException e) {
 //            e.printStackTrace();

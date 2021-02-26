@@ -81,15 +81,15 @@ public class RequestServiceImpl implements RequestService {
 
             new RequestAuditsDAO().create(requestId, auditId);
 
-            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
-            notify.setRqUID(UUID.randomUUID().toString());
-            notify.setCorrelationUID(req.getRqUID());
-            notify.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
-            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
-            notifyRequest.setRequestUUID(req.getCreateRequest().getRequestUUID());
-            notifyRequest.setStatus(RequestStatusType.CREATED.name());
-            notify.setNotifyRequestStatusRequest(notifyRequest);
-            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,requestId,null);
+//            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
+//            notify.setRqUID(UUID.randomUUID().toString());
+//            notify.setCorrelationUID(req.getRqUID());
+//            notify.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
+//            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+//            notifyRequest.setRequestUUID(req.getCreateRequest().getRequestUUID());
+//            notifyRequest.setStatus(RequestStatusType.CREATED.name());
+//            notify.setNotifyRequestStatusRequest(notifyRequest);
+//            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,requestId,null);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,14 +161,15 @@ public class RequestServiceImpl implements RequestService {
                     ASNAME2.getId(),
                     req.getCancelRequest().getComment());
 
-            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
-            notify.setCorrelationUID(req.getRqUID());
-            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
-            notifyRequest.setRequestUUID(req.getCancelRequest().getRequestUUID());
-            notifyRequest.setStatus(RequestStatusType.CANCELED.name());
-            notifyRequest.setComment(new org.asname.service.requests.RequestService().getRequestByUUID(req.getCancelRequest().getRequestUUID()).getCommentRequestStatus());
-            notify.setNotifyRequestStatusRequest(notifyRequest);
-            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,requestId,null);
+//            Request request = new org.asname.service.requests.RequestService().getRequestByUUID(req.getCancelRequest().getRequestUUID());
+//            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
+//            notify.setCorrelationUID(req.getRqUID());
+//            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+//            notifyRequest.setRequestUUID(req.getCancelRequest().getRequestUUID());
+//            notifyRequest.setStatus(RequestStatusType.CANCELED.name());
+//            notifyRequest.setComment(new org.asname.service.requests.RequestService().getRequestByUUID(req.getCancelRequest().getRequestUUID()).getCommentRequestStatus());
+//            notify.setNotifyRequestStatusRequest(notifyRequest);
+//            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,requestId,null);
 
         } catch (Exception e) {
             e.printStackTrace();

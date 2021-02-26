@@ -1,0 +1,99 @@
+.Grid {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.Grid[data-display='none'] {
+    display: none;
+}
+
+.Grid .FilterGrid td {
+    border: 1px solid #ddd;
+}
+
+.Grid .HeaderGrid td.Field {
+    border: 1px solid #ddd;
+    border-right: 3px solid rgb(238, 238, 238);
+}
+
+.Grid tbody td {
+    border: 1px solid #ddd;
+}
+
+.Grid tbody td {
+    padding: 5px 5px;
+}
+
+.Grid .FilterGrid td {
+    padding-left: 3px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    background-color: #fff;
+}
+
+.Grid .FilterGrid td input[type='text'] {
+    height: 20px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.Grid .FilterGrid td select {
+    height: 23px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.HeaderGrid td.Field {
+    background-color: #fcfcfc;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.HeaderGrid td.Name {
+    text-align: center;
+    width: 100%;
+}
+
+.HeaderGrid td.Resize {
+    cursor: col-resize;
+    width:3px;
+    height: 35px;
+}
+
+.Grid tr[data-display='none'] {
+    display: none;
+}
+
+.Grid tr[data-nth-child='odd'] {
+    background-color: #f2f2f2;
+}
+
+.Grid tr[data-nth-child='even'] {
+    background-color: #fff;
+}
+
+.Grid td[data-display='none'] {
+    display: none;
+}
+
+.Grid tr[data-checked='true'] {
+    background-color: rgb(75, 151, 175);
+    color: white;
+}
+
+.Grid tr[data-checked-current='true'] {
+    border: 2px dotted #fff;
+}
+
+.Grid td[data-sort-direction='asc'] .Name::after {
+    content: ' ↑';
+}
+
+.Grid td[data-sort-direction='desc'] .Name::after {
+    content: ' ↓';
+}

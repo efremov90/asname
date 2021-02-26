@@ -122,75 +122,98 @@ public class RequestService {
         logger.info("start");
 
         Integer result = null;
+        boolean dontExecute = false;
+        Request existingRequest = null;
 
         UserAccount userAccount = new UserAccountDAO().getUserAccountById(userAccountId);
         if (!new PermissionService().isPermission(userAccountId, REQUESTS_CREATE))
             throw new Exception(String.format("У пользователя %s отсутствует разрешение %s.",
                     userAccount.getAccount(),
                     REQUESTS_CREATE.name()));
-        if (getRequestByUUID(request.getRequestUUID()) != null)
-            throw new Exception(String.format("Уже есть заявка с UUID %s.",
-                    request.getRequestUUID()));
+        if (getRequestByUUID(request.getRequestUUID()) != null) {
+            existingRequest = getRequestByUUID(request.getRequestUUID());
+            result=existingRequest.getId();
+            if (request.getCreateSystemId()!=existingRequest.getCreateSystemId())
+                throw new Exception(String.format("Уже есть заявка с UUID %s.",
+                        request.getRequestUUID()));
+            //заявка повторно создается системой-создателем
+            else dontExecute=true;
+        }
         if (request.getClientCode() == null || request.getClientCode() == "")
             throw new Exception(String.format("Не задан код клиента."));
         if (new ClientService().getClient(request.getClientCode()) == null)
             throw new Exception(String.format("Не найден клиент с кодом %s.",
                     request.getClientCode()));
 
-        conn.setAutoCommit(false);
+        //dontExecute - не выполнять, потому что см. выше
+        if (!dontExecute) {
 
-        request.setRequestStatus(CREATED);
-        request.setLastDateTimeChangeRequestStatus(new java.util.Date());
-        result = new RequestDAO().create(request);
+            conn.setAutoCommit(false);
 
-        Integer requestId = result;
+            request.setRequestStatus(CREATED);
+            request.setLastDateTimeChangeRequestStatus(new java.util.Date());
+            result = new RequestDAO().create(request);
 
-        RequestStatusHistory requestStatusHistory = new RequestStatusHistory();
-        requestStatusHistory.setRequestId(requestId);
-        requestStatusHistory.setStatus(CREATED);
-        requestStatusHistory.setEventDateTime(request.getLastDateTimeChangeRequestStatus());
-        requestStatusHistory.setUserId(userAccountId);
-        new RequestStatusHistoryDAO().create(requestStatusHistory);
+            Integer requestId = result;
 
-        Integer auditId = new AuditService().create(
-                AuditOperType.CREATE_REQUEST,
-                userAccountId,
-                request.getCreateDateTime(),
-                String.format("UUID заявки: %s \n" +
-                                "Дата создания: %s \n" +
-                                "Код клиента: %s \n" +
-                                "Комментарий: %s",
-                        request.getRequestUUID(),
-                        request.getCreateDate().toString(),
-                        request.getClientCode(),
-                        request.getComment()),
-                requestId
-        );
+            RequestStatusHistory requestStatusHistory = new RequestStatusHistory();
+            requestStatusHistory.setRequestId(requestId);
+            requestStatusHistory.setStatus(CREATED);
+            requestStatusHistory.setEventDateTime(request.getLastDateTimeChangeRequestStatus());
+            requestStatusHistory.setUserId(userAccountId);
+            new RequestStatusHistoryDAO().create(requestStatusHistory);
 
-        new RequestAuditsDAO().create(requestId, auditId);
+            Integer auditId = new AuditService().create(
+                    AuditOperType.CREATE_REQUEST,
+                    userAccountId,
+                    request.getCreateDateTime(),
+                    String.format("UUID заявки: %s \n" +
+                                    "Дата создания: %s \n" +
+                                    "Код клиента: %s \n" +
+                                    "Комментарий: %s",
+                            request.getRequestUUID(),
+                            request.getCreateDate().toString(),
+                            request.getClientCode(),
+                            request.getComment()),
+                    requestId
+            );
 
-        if (request.getClientCode().equals("1001")) {
-            Task task = new Task();
-            task.setType(CANCEL_REQUEST);
-            task.setCreateDateTime(new java.util.Date());
-            task.setCreateDate(task.getCreateDateTime());
-            task.setPlannedStartDateTime(task.getCreateDateTime());
-            task.setStatus(TaskStatusType.CREATED);
-            task.setUserAccountId(userAccountId);
+            new RequestAuditsDAO().create(requestId, auditId);
 
-            Integer taskId = new TaskService().create(task, userAccountId, requestId);
+            if (request.getClientCode().equals("1001")) {
+                Task task = new Task();
+                task.setType(CANCEL_REQUEST);
+                task.setCreateDateTime(new java.util.Date());
+                task.setCreateDate(task.getCreateDateTime());
+                task.setPlannedStartDateTime(task.getCreateDateTime());
+                task.setStatus(TaskStatusType.CREATED);
+                task.setUserAccountId(userAccountId);
 
-            new RequestTasksDAO().create(requestId, taskId);
+                Integer taskId = new TaskService().create(task, userAccountId, requestId);
 
-            ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-            scheduledExecutorService.schedule(new RequestTaskService(result),
-                    Integer.valueOf(CANCEL_REQUEST_INTERVAL.getValue()),
-                    TimeUnit.SECONDS);
-            scheduledExecutorService.shutdown();
+                new RequestTasksDAO().create(requestId, taskId);
+
+                ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+                scheduledExecutorService.schedule(new RequestTaskService(result),
+                        Integer.valueOf(CANCEL_REQUEST_INTERVAL.getValue()),
+                        TimeUnit.SECONDS);
+                scheduledExecutorService.shutdown();
+            }
+
+            conn.commit();
+            conn.setAutoCommit(true);
         }
 
-        conn.commit();
-        conn.setAutoCommit(true);
+        //Отправка нотификации при создании через MQ системой-создателем
+        if ((request.getCreateSystemId() == ASNAME2.getId()) && (userAccountId == ASNAME2.getId())) {
+            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
+            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+            notifyRequest.setRequestUUID(request.getRequestUUID());
+            notifyRequest.setStatus((existingRequest!=null) ? existingRequest.getRequestStatus().name() : CREATED.toString());
+            notifyRequest.setComment((existingRequest!=null) ? existingRequest.getCommentRequestStatus() : null);
+            notify.setNotifyRequestStatusRequest(notifyRequest);
+            new RequestServiceImpl().notifyRequestStatusRq(notify, (existingRequest!=null) ? existingRequest.getId() : result,null);
+        }
 
         return result;
     }
@@ -199,7 +222,7 @@ public class RequestService {
         logger.info("start");
 
         boolean result = false;
-        boolean dontExecute = true;
+        boolean dontExecute = false;
 
         UserAccount userAccount = new UserAccountDAO().getUserAccountById(userAccountId);
         if (!new PermissionService().isPermission(userAccountId, REQUESTS_CANCEL))
@@ -212,13 +235,23 @@ public class RequestService {
 
         Request request = new RequestService().getRequestByUUID(requestUUID);
 
+        if (getRequestByUUID(request.getRequestUUID()) != null) {
+            Request existingRequest = getRequestByUUID(request.getRequestUUID());
+            if (request.getCreateSystemId()!=existingRequest.getCreateSystemId())
+                throw new Exception(String.format("Система-создатель id %s не соответствует id %s.",
+                        request.getCreateSystemId(),
+                        existingRequest.getCreateSystemId()));
+        }
+
         if (getRequestByUUID(requestUUID).getRequestStatus() != CREATED)
             if (request.getCreateSystemId() != ASNAME2.getId())
                 throw new Exception(String.format("Заявка в статусе %s.",
                         request.getRequestStatus().getDescription()));
-            else dontExecute = false;
+            //заявка отменяется системой-создателем и она в не доступном статусе
+            else dontExecute = true;
 
-        if (dontExecute) {
+        //dontExecute - не выполнять, потому что см. выше
+        if (!dontExecute) {
 
             conn.setAutoCommit(false);
             request.setRequestStatus(CANCELED);
@@ -250,12 +283,15 @@ public class RequestService {
             conn.setAutoCommit(true);
         }
 
-        if ((request.getCreateSystemId() == ASNAME2.getId()) && (userAccountId != ASNAME2.getId())) {
+        Request existingRequest = getRequestByUUID(request.getRequestUUID());
+
+        //Отправка нотификации при отмене не системой-создателем
+        if (request.getCreateSystemId() == ASNAME2.getId()) {
             NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
             NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
             notifyRequest.setRequestUUID(requestUUID);
-            notifyRequest.setStatus(request.getRequestStatus().name());
-            notifyRequest.setComment(comment);
+            notifyRequest.setStatus((existingRequest!=null) ? existingRequest.getRequestStatus().name() : CREATED.toString());
+            notifyRequest.setComment((existingRequest!=null) ? existingRequest.getCommentRequestStatus() : null);
             notify.setNotifyRequestStatusRequest(notifyRequest);
             new RequestServiceImpl().notifyRequestStatusRq(notify, request.getId(),null);
         }

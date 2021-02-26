@@ -1,0 +1,43 @@
+button {
+    height: 27px;
+    color: #262626;
+    min-width: 70px;
+    text-align: center;
+    border: 1px solid #c0c0c0;
+    background: #f5f5f5;
+    font-weight: 400;
+}
+
+button.Choice {
+    height: 20px;
+    min-width: 25px;
+    border-radius: 2px;
+}
+
+button:hover {
+    background: #e6e6fa;
+}
+
+button:active {
+    background: #c0c0c0;
+}
+
+button:disabled {
+    color: #8d8d8d;
+    background-color: #f5f5f5;
+}
+
+.ButtonBar {
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 5px;
+}
+
+.ButtonBar button [data-permission-display='none'] {
+    display: none;
+}
+
+.ButtonBar button {
+    display: inline-block;
+    margin-right: 5px;
+}

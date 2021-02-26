@@ -27,6 +27,11 @@ public class SecurityFilter implements Filter {
         String sessionId = request.getRequestedSessionId();
         AuthHeader authHeader = new AuthHeader(request.getHeader(AUTHENTICATION_HEADER));
 
+        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin","http://localhost:3000");
+        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Headers","Authorization,Content-Type,Set-Cookie,Cookie,AUTH_STATUS_CODE,Content-Disposition");
+        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Method","*");
+        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Credentials","true");
+
 //        logger.info("start");
 //        logger.info("getRequestURL:" + request.getRequestURL());
 //        logger.info("getRequestURI:" + request.getRequestURI());
@@ -58,21 +63,19 @@ public class SecurityFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             } else if (sessionId != null
-                    /*&& authHeader.getAccount()!=null*/
-                    && new SecuritySevice().isActiveSession(/*authHeader.getAccount(),*/
-                    sessionId)
+                    && new SecuritySevice().isActiveSession(sessionId)
             ) {
-                logger.info("isActiveSession=true");
+                logger.info("sessionId != null && new SecuritySevice().isActiveSession(sessionId)");
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 logger.info("isActiveSession=false");
-                //response.sendRedirect(request.getContextPath()+"/login");
-                RequestDispatcher dispatcher = request.getServletContext()
-                        .getRequestDispatcher("/view/login.html");
-                response.setStatus(403);
-                dispatcher.forward(request, response);
-                return;
-//                filterChain.doFilter(servletRequest, servletResponse);
+//                RequestDispatcher dispatcher = request.getServletContext()
+//                        .getRequestDispatcher("/view/login.html");
+//                response.setStatus(403);
+//                dispatcher.forward(request, response);
+//                return;
+                filterChain.doFilter(servletRequest, servletResponse);
+                //response.sendRedirect("http://localhost:3000/login");
             }
         } catch (Exception e) {
             /*logger.throwing(SecurityFilter.class.getName(),

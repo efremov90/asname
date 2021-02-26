@@ -25,8 +25,8 @@ public class StartTask implements ServletContextListener {
                     0,
                     Integer.valueOf(CLOSE_REQUEST_INTERVAL.getValue()),
                     TimeUnit.SECONDS);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 

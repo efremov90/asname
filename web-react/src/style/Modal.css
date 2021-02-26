@@ -1,0 +1,81 @@
+.BackgroundWindow {
+    position: fixed;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.Window {
+    top: 20px;
+    border: 1px solid #c0c0c0;
+    /*width: 80%;*/
+    /*margin: 5% auto 15% auto;*/
+    background-color: #fff;
+    overflow: auto;
+}
+
+.HeaderWindow {
+    height: 30px;
+    width: 100%;
+    background-color: #f1f1f1;
+    cursor: move;
+}
+
+.TitleHeaderWindow {
+    float: left;
+    height: 100%;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 30px;
+    background-color: #f1f1f1;
+    padding-left: 5px;
+}
+
+.ButtonHeaderWindow {
+    float: right;
+}
+
+.ButtonHeaderWindow button {
+    background-color: #f1f1f100;
+    border: 0px;
+    height: 100%;
+    min-width: 30px;
+    font-size: 20px;
+}
+
+.ButtonHeaderWindow button:hover {
+    color: red;
+}
+
+.ButtonHeaderWindow button:focus {
+    outline: none;
+}
+
+.ContainerModal {
+    /*display: block;*/
+    padding: 10px 10px;
+    overflow: auto;
+}
+
+.ButtonBottomModal {
+    /*display: block;*/
+    /*position: relative;
+    bottom:0px;*/
+    background-color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid #ddd;
+}
+
+.RightBottomResize {
+    border: 4px solid transparent;
+    border-right: 4px solid #f1f1f1;
+    border-bottom: 4px solid #f1f1f1;
+    position:absolute;
+    bottom:0px;
+    right:0px;
+    cursor:nwse-resize;
+}

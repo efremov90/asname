@@ -30,7 +30,7 @@ public class MQLogDAO {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, mqLog.getRqUID().toLowerCase());
+        st.setString(1, mqLog.getRqUID() != null ? mqLog.getRqUID().toLowerCase() : null);
         st.setString(2, mqLog.getCorrelationUID() != null ? mqLog.getCorrelationUID().toLowerCase() : null);
         st.setString(3,
                 new Timestamp(mqLog.getCreateDatetime().getTime()).toString());

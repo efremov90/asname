@@ -37,16 +37,17 @@ public class IntegrationService {
     }
 
     public MethodType getMethod(String message) {
-        MethodType result = MethodType.Unknown;
-        String beginMessage = (message != null ? message.substring(0,Math.min(60,message.length())) : null);
+        MethodType result = null;
+        String beginMessage = (message != null ? message.substring(0,Math.min(400,message.length())) : null);
         for (MethodType value : MethodType.values()) {
-            if (!value.equals(MethodType.Unknown)) {
+//            if (!value.equals(MethodType.Unknown)) {
                 final Pattern PATTERN = Pattern.compile(value.name().toLowerCase());
                 if (PATTERN.matcher(beginMessage.toString().toLowerCase()).find()) {
                     return value;
                 }
-            }
+//            }
         }
+        if (result==null) result=MethodType.Unknown;
         return result;
     }
 

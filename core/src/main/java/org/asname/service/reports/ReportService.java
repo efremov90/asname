@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static org.asname.model.security.Permissions.REPORT_GENERATE_REPORT_REQUESTS_CONSOLIDATED;
+import static org.asname.model.security.Permissions.REPORT_GENERATE_REQUESTS_CONSOLIDATED;
 import static org.asname.model.security.Permissions.REPORT_GENERATE_REQUESTS_DETAILED;
 import static org.asname.model.reports.ReportStatusType.*;
 import static org.asname.model.tasks.TaskType.REPORT;
@@ -195,10 +195,10 @@ public class ReportService {
                             REPORT_GENERATE_REQUESTS_DETAILED.name()));
                 break;
             case REPORT_REQUESTS_CONSOLIDATED:
-                if (!new PermissionService().isPermission(userAccountId, REPORT_GENERATE_REPORT_REQUESTS_CONSOLIDATED))
+                if (!new PermissionService().isPermission(userAccountId, REPORT_GENERATE_REQUESTS_CONSOLIDATED))
                     throw new Exception(String.format("У пользователя %s отсутствует разрешение %s.",
                             userAccount.getAccount(),
-                            REPORT_GENERATE_REPORT_REQUESTS_CONSOLIDATED.name()));
+                            REPORT_GENERATE_REQUESTS_CONSOLIDATED.name()));
                 break;
         }
 
@@ -265,7 +265,7 @@ public class ReportService {
                                           Map<String, Object> parameters,
                                           JRBeanCollectionDataSource data) throws JRException, IOException {
 
-        String PROJECT_PATH = "C:\\Users\\NEO\\IdeaProjects\\CRUDServlet";
+        String PROJECT_PATH = "C:\\Users\\sanya\\IdeaProjects\\asname\\webapp\\src\\main\\webapp";
         String FILE_NAME = null;
         String REPORT_pattern = "\\jrxml";
         String FILE_EXTENSION_PATTERN = ".jrxml";
@@ -277,12 +277,12 @@ public class ReportService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, data);
 
         // Make sure the output directory exists.
-        File outDir = new File("C:/jasperoutput");
-        outDir.mkdirs();
+//        File outDir = new File("C:/jasperoutput");
+//        outDir.mkdirs();
 
         // Export to PDF.
-        JasperExportManager.exportReportToHtmlFile(jasperPrint,
-                "C:/jasperoutput/StyledTextReport.html");
+//        JasperExportManager.exportReportToHtmlFile(jasperPrint,
+//                "C:/jasperoutput/StyledTextReport.html");
 
         switch (formatReportType) {
             case XLS:

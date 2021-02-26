@@ -1,0 +1,52 @@
+.MainForm.Menu {
+    position: relative;
+    top: 0px;
+    height: 100%;
+    max-height: 100%;
+    float: left;
+    overflow: auto;
+    white-space: pre;
+}
+
+ul.MainForm.Menu {
+    padding: 0;
+    margin: 0;
+}
+
+.MainForm.Menu ul {
+    list-style-type: none;
+}
+
+.MainForm.Menu li {
+    padding-left: 10px;
+    margin-left: 0px;
+    font-size: 15px;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+.MainForm.Menu .NodeGroupLI.Close::before {
+    content: '+ ';
+    color: black;
+    display: inline-block;
+    /*margin-right: 5px;*/
+}
+
+.MainForm.Menu .NodeGroupLI.Open::before {
+    content: '- ';
+    color: black;
+    display: inline-block;
+    /*margin-right: 5px;*/
+}
+
+.MainForm.Menu .NodeUL {
+    display: none;
+}
+
+.MainForm.Menu .NodeUL.Open {
+    display: block;
+}
+
+.MainForm.Menu .Checked {
+    font-weight: bold;
+}

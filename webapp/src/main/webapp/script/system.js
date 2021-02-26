@@ -350,7 +350,7 @@ function downloadReport(reportId, form) {
     let req = new HttpRequestCRUD();
     req.setFetch(url + '/getReport', json);
     // req.setContentType("application/json;charset=UTF-8")
-    req.setContentType("application/vnd.oasis.opendocument.text;charset=UTF-8")
+    req.setContentType("application/vnd.oasis.opendocument.text;charset=UTF-8");
     req.setForm(form);
     let request = req.fetchBlob();
     request.then(

@@ -1,0 +1,21 @@
+.Tabs {
+    border-collapse: collapse;
+}
+
+.Tabs td {
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 2px solid #ffffff;
+    text-align: center;
+}
+
+.Tabs td:hover:not(.active) {
+    background-color: #e4e4e4;
+}
+
+.Tabs td[data-checked='true'] {
+    font-weight: 500;
+    background-color: #e4e4e4;
+}

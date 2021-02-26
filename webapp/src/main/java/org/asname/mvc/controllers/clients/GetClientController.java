@@ -66,6 +66,7 @@ public class GetClientController {
                 clientATMDTO.setCloseDate(clientATM.getCloseDate() != null ?
                         new Date(clientATM.getCloseDate().getTime()).toString() :
                         null);
+                getClientResponseDTO.setSelfservice(clientATMDTO);
                 break;
         }
         return getClientResponseDTO;
