@@ -8,7 +8,9 @@ function initFormViewRequest(parentForm, requestId) {
 
         let requestTab = form.querySelector('.tab#request');
         let historyTab = form.querySelector('.tab#history');
+        historyTab.querySelector(".headerTable TD[data-field='id']").setAttribute('data-sort-direction', 'asc');
         let auditTab = form.querySelector('.tab#audit');
+        auditTab.querySelector(".headerTable TD[data-field='id']").setAttribute('data-sort-direction', 'asc');
 
         requestTab.setAttribute('data-display', 'none');
         historyTab.setAttribute('data-display', 'none');

@@ -30,6 +30,7 @@ public class PermissionService {
             case -1: //system
             case -2: //asname1
             case -3: //asname2
+            case -4: //asname3
                 return result = true;
         }
 

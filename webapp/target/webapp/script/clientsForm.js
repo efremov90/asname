@@ -117,7 +117,8 @@ function initFormClients(parentForm) {
             let json = JSON.stringify(search);
             //alert(json);
             let req = new HttpRequestCRUD();
-            req.setFetch(url + "/getClients", json);
+            // req.setFetch(url + "/getClients", json);
+            req.setFetch("http://localhost:8081/asname/mvc" + "/getClients", json);
             req.setForm(form);
             let request = req.fetchJSON();
             request.then(
@@ -158,7 +159,8 @@ function initFormClients(parentForm) {
                 let json = JSON.stringify(client);
                 //alert(json);
                 let req = new HttpRequestCRUD();
-                req.setFetch(url + "/getClient", json);
+                // req.setFetch(url + "/getClient", json);
+                req.setFetch("http://localhost:8081/asname/mvc" + "/getClient", json);
                 req.setForm(form);
                 let request = req.fetchJSON();
                 request.then(

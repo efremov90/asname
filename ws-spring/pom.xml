@@ -11,11 +11,11 @@
 
     <artifactId>ws-spring</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>ws-one</module>
         <module>ws-two</module>
         <module>ws-contract</module>
     </modules>
-
 
 </project>

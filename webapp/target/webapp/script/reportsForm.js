@@ -44,9 +44,9 @@ function initFormReports(reportType, parentForm) {
                 false
             );
         }
-        if (!permissions.has("REPORT_GENERATE_REPORT_REQUESTS_CONSOLIDATED")) {
+        if (!permissions.has("REPORT_GENERATE_REQUESTS_CONSOLIDATED")) {
             REPORT_REUESTS_CONSOLIDATED_Table.remove();
-            btnSelectReportType.querySelector('[value="REPORT_GENERATE_REPORT_REQUESTS_CONSOLIDATED"]').remove();
+            btnSelectReportType.querySelector('[value="REPORT_GENERATE_REQUESTS_CONSOLIDATED"]').remove();
         }
 
         form.querySelector('table#' + btnSelectReportType.value).setAttribute('data-display', 'block');

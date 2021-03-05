@@ -4,7 +4,8 @@ public enum SystemType {
 
     ASNAME(-1, "AS Name"),
     ASNAME1(-2, "AS Name 1"),
-    ASNAME2(-3, "AS Name 2");
+    ASNAME2(-3, "AS Name 2"),
+    ASNAME3(-4, "AS Name 3");
 
     private final int Id;
     private final String Description;

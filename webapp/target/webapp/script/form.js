@@ -444,7 +444,7 @@ window.addEventListener(
                         if (itemsMenu[i].id == "clients" && !permissions.has("CLIENTS_VIEW")) none = true;
                         if (itemsMenu[i].id == "myReports" && !permissions.has("REPORTS_VIEW")) none = true;
                         if (itemsMenu[i].id == "REPORT_REQUESTS_DETAILED" && !permissions.has("REPORT_GENERATE_REQUESTS_DETAILED")) none = true;
-                        if (itemsMenu[i].id == "REPORT_REQUESTS_CONSOLIDATED" && !permissions.has("REPORT_GENERATE_REPORT_REQUESTS_CONSOLIDATED")) none = true;
+                        if (itemsMenu[i].id == "REPORT_REQUESTS_CONSOLIDATED" && !permissions.has("REPORT_GENERATE_REQUESTS_CONSOLIDATED")) none = true;
                         if (none) itemsMenu[i].remove();
                     }
                 }

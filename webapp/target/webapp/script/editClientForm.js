@@ -128,7 +128,8 @@ function initFormCreateClient(mode, parentForm, initForm) {
                         break;
                 }
                 let req = new HttpRequestCRUD();
-                req.setFetch(url + path, json);
+                // req.setFetch(url + path, json);
+                req.setFetch("http://localhost:8081/asname/mvc" + path, json);
                 req.setForm(form);
                 let request = req.fetchJSON();
                 request.then(

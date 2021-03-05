@@ -11,7 +11,7 @@
   <artifactId>ws-two</artifactId>
   <packaging>war</packaging>
 
-  <name>ws-two Maven Webapp</name>
+  <name>ws-two</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -20,6 +20,16 @@
       <groupId>org.asname</groupId>
       <artifactId>core</artifactId>
       <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.ws</groupId>
+      <artifactId>spring-ws-core</artifactId>
+<!--      <version>2.4.1.RELEASE</version>-->
+    </dependency>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+<!--      <version>2.0.6</version>-->
     </dependency>
   </dependencies>
 

@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "CreateRequestRq": {
+      "$ref": "#/definitions/CreateRequestRq"
+    },
+    "CreateRequestRs": {
+      "$ref": "#/definitions/CreateRequestRs"
+    },
+    "CancelRequestRq": {
+      "$ref": "#/definitions/CancelRequestRq"
+    },
+    "CancelRequestRs": {
+      "$ref": "#/definitions/CancelRequestRs"
+    },
+    "NotifyRequestStatusRq": {
+      "$ref": "#/definitions/NotifyRequestStatusRq"
+    },
+    "NotifyRequestStatusRs": {
+      "$ref": "#/definitions/NotifyRequestStatusRs"
+    }
+  },
+  "definitions": {
+    "CreateRequestRq": {
+      "$ref": "#/definitions/CreateRequestRqType"
+    },
+    "CreateRequestRs": {
+      "$ref": "#/definitions/ResultType"
+    },
+    "CancelRequestRq": {
+      "$ref": "#/definitions/CancelRequestRqType"
+    },
+    "CancelRequestRs": {
+      "$ref": "#/definitions/ResultType"
+    },
+    "NotifyRequestStatusRq": {
+      "$ref": "#/definitions/NotifyRequestStatusRqType"
+    },
+    "NotifyRequestStatusRs": {
+      "$ref": "#/definitions/ResultType"
+    },
+    "BaseType": {
+      "type": "object",
+      "properties": {
+        "RqUID": {
+          "$ref": "#/definitions/UUID36Type",
+          "description": "Уникальный идентификатор запроса"
+        },
+        "RqTm": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Дата и время передачи сообщения"
+        },
+        "correlationUID": {
+          "$ref": "#/definitions/UUID36Type",
+          "description": "Уникальный идентификатор исходного сообщения"
+        }
+      },
+      "required": [
+        "RqUID",
+        "RqTm"
+      ]
+    },
+    "StatusType": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        }
+      },
+      "required": [
+        "Code"
+      ]
+    },
+    "CreateRequestType": {
+      "type": "object",
+      "properties": {
+        "RequestUUID": {
+          "$ref": "#/definitions/UUID36Type"
+        },
+        "CreateDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "ClientCode": {
+          "$ref": "#/definitions/ClientCodeType"
+        },
+        "Comment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "RequestUUID",
+        "CreateDate",
+        "ClientCode",
+        "Comment"
+      ]
+    },
+    "CancelRequestType": {
+      "type": "object",
+      "properties": {
+        "RequestUUID": {
+          "$ref": "#/definitions/UUID36Type"
+        },
+        "Comment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "RequestUUID",
+        "Comment"
+      ]
+    },
+    "NotifyRequestStatusType": {
+      "type": "object",
+      "properties": {
+        "RequestUUID": {
+          "$ref": "#/definitions/UUID36Type"
+        },
+        "Status": {
+          "$ref": "#/definitions/RequestStatusType"
+        },
+        "Comment": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "RequestUUID",
+        "Status"
+      ]
+    },
+    "CreateRequestRqType": {
+      "type": "object",
+      "properties": {
+        "Header": {
+          "$ref": "#/definitions/BaseType"
+        },
+        "CreateRequest": {
+          "$ref": "#/definitions/CreateRequestType"
+        }
+      },
+      "required": [
+        "Header",
+        "CreateRequest"
+      ]
+    },
+    "CancelRequestRqType": {
+      "type": "object",
+      "properties": {
+        "Header": {
+          "$ref": "#/definitions/BaseType"
+        },
+        "CancelRequest": {
+          "$ref": "#/definitions/CancelRequestType"
+        }
+      },
+      "required": [
+        "Header",
+        "CancelRequest"
+      ]
+    },
+    "NotifyRequestStatusRqType": {
+      "type": "object",
+      "properties": {
+        "Header": {
+          "$ref": "#/definitions/BaseType"
+        },
+        "NotifyRequestStatusRequest": {
+          "$ref": "#/definitions/NotifyRequestStatusType"
+        }
+      },
+      "required": [
+        "Header",
+        "NotifyRequestStatus"
+      ]
+    },
+    "ResultType": {
+      "type": "object",
+      "properties": {
+        "Header": {
+          "$ref": "#/definitions/BaseType"
+        },
+        "Status": {
+          "$ref": "#/definitions/StatusType"
+        }
+      },
+      "required": [
+        "Header",
+        "Status"
+      ]
+    },
+    "UUID36Type": {
+      "type": "string",
+      "maxLength": 36,
+      "minLength": 36,
+      "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+    },
+    "ClientCodeType": {
+      "type": "string",
+      "maxLength": 50,
+      "minLength": 1
+    },
+    "RequestStatusType": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "CANCELED",
+        "CLOSED",
+        "ERROR"
+      ]
+    }
+  }
+}
