@@ -25,7 +25,7 @@ public class KafkaSender {
     }
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<Integer, String> kafkaTemplate;
 
     private void createLogServiceMessageOk(String rqUID, String correlUID, String textMessage,
                                            MethodType methodType, String destination, Exception exception) throws Exception {
