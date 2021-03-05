@@ -25,7 +25,7 @@ public class KafkaSender {
     }
 
     @Autowired
-    private KafkaTemplate<Integer, String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     private void createLogServiceMessageOk(String rqUID, String correlUID, String textMessage,
                                            MethodType methodType, String destination, Exception exception) throws Exception {
@@ -34,7 +34,7 @@ public class KafkaSender {
         mqLog.setCorrelationUID(correlUID);
         mqLog.setCreateDatetime(new Date());
         mqLog.setDirection(DirectionType.OUT);
-        mqLog.setContent(new IntegrationService().transformXML(textMessage));
+        mqLog.setContent(textMessage);
         mqLog.setMethod(methodType);
         mqLog.setStatus(StatusType.OK);
         mqLog.setDestination(destination);

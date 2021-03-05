@@ -31,7 +31,7 @@ public class Requests {
     @JsonProperty("CancelRequestRq")
     private CancelRequestRq cancelRequestRq;
     @JsonProperty("CancelRequestRs")
-    private CreateRequestRs cancelRequestRs;
+    private CancelRequestRs cancelRequestRs;
     @JsonProperty("NotifyRequestStatusRq")
     private NotifyRequestStatusRq notifyRequestStatusRq;
     @JsonProperty("NotifyRequestStatusRs")
@@ -70,12 +70,12 @@ public class Requests {
     }
 
     @JsonProperty("CancelRequestRs")
-    public CreateRequestRs getCancelRequestRs() {
+    public CancelRequestRs getCancelRequestRs() {
         return cancelRequestRs;
     }
 
     @JsonProperty("CancelRequestRs")
-    public void setCancelRequestRs(CreateRequestRs cancelRequestRs) {
+    public void setCancelRequestRs(CancelRequestRs cancelRequestRs) {
         this.cancelRequestRs = cancelRequestRs;
     }
 

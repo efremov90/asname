@@ -23,16 +23,16 @@ import java.util.Map;
 public class KafkaConfig {
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<Integer, String>
-    kafkaListenerContainerFactory(ConsumerFactory<Integer, String> consumerFactory) {
-        ConcurrentKafkaListenerContainerFactory<Integer, String> factory =
+    ConcurrentKafkaListenerContainerFactory<String, String>
+    kafkaListenerContainerFactory(ConsumerFactory<String, String> consumerFactory) {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
         return factory;
     }
 
     @Bean
-    public ConsumerFactory<Integer, String> consumerFactory() {
+    public ConsumerFactory<String, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerProps());
     }
 
@@ -48,7 +48,7 @@ public class KafkaConfig {
     }
 
 /*    @Bean
-    public Sender sender(KafkaTemplate<Integer, String> template) {
+    public Sender sender(KafkaTemplate<String, String> template) {
         return new Sender(template);
     }*/
 
@@ -58,7 +58,7 @@ public class KafkaConfig {
     }*/
 
     @Bean
-    public ProducerFactory<Integer, String> producerFactory() {
+    public ProducerFactory<String, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(senderProps());
     }
 
@@ -73,7 +73,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public KafkaTemplate<Integer, String> kafkaTemplate(ProducerFactory<Integer, String> producerFactory) {
-        return new KafkaTemplate<Integer, String>(producerFactory);
+    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
+        return new KafkaTemplate<String, String>(producerFactory);
     }
 }

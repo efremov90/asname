@@ -33,7 +33,7 @@ public class KafkaReceiver {
         mqLog.setRqUID(baseType.getRqUID());
         mqLog.setCreateDatetime(new Date());
         mqLog.setDirection(DirectionType.IN);
-        mqLog.setContent(new IntegrationService().transformXML(textMessage));
+        mqLog.setContent(textMessage);
         mqLog.setMethod(methodType);
         mqLog.setStatus(StatusType.OK);
         mqLog.setDestination(destination);

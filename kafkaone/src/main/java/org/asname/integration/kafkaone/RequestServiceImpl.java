@@ -18,8 +18,7 @@ import java.sql.Date;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import static org.asname.audit.model.SystemType.ASNAME;
-import static org.asname.audit.model.SystemType.ASNAME3;
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -178,26 +177,32 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void createRequestRs(CreateRequestRs res, Exception exception) throws Exception {
+    public void createRequestRs(CreateRequestRs createRequestRs, Exception exception) throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(KafkaConfig.class);
         KafkaSender kafkaSender = ctx.getBean(KafkaSender.class);
         kafkaSender.setDestination(DestinationsType.OUT.getDescription());
         ObjectMapper mapper = new ObjectMapper();
-        kafkaSender.send(res.getHeader().getRqUID(), res.getHeader().getCorrelationUID(),
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+        Requests res = new Requests();
+        res.setCreateRequestRs(createRequestRs);
+        kafkaSender.send(createRequestRs.getHeader().getRqUID(), createRequestRs.getHeader().getCorrelationUID(),
                 mapper.writeValueAsString(res),
                 MethodType.CreateRequestRs,
                 exception);
     }
 
     @Override
-    public void cancelRequestRs(CancelRequestRs res, Exception exception) throws Exception {
+    public void cancelRequestRs(CancelRequestRs cancelRequestRs, Exception exception) throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(KafkaConfig.class);
         KafkaSender kafkaSender = ctx.getBean(KafkaSender.class);
         kafkaSender.setDestination(DestinationsType.OUT.getDescription());
         ObjectMapper mapper = new ObjectMapper();
-        kafkaSender.send(res.getHeader().getRqUID(), res.getHeader().getCorrelationUID(),
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+        Requests res = new Requests();
+        res.setCancelRequestRs(cancelRequestRs);
+        kafkaSender.send(cancelRequestRs.getHeader().getRqUID(), cancelRequestRs.getHeader().getCorrelationUID(),
                 mapper.writeValueAsString(res),
                 MethodType.CancelRequestRs,
                 exception);
