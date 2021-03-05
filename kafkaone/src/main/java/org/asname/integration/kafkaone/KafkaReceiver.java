@@ -9,12 +9,14 @@ import org.asname.integration.mq.log.service.MQLogService;
 import org.asname.integration.utils.model.MethodType;
 import org.asname.integration.utils.service.IntegrationService;
 import org.everit.json.schema.Schema;
+import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.logging.Logger;
