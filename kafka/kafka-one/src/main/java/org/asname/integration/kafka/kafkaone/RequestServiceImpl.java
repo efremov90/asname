@@ -1,22 +1,18 @@
-package org.asname.integration.mq.receive.mqone;
+package org.asname.integration.kafka.kafkaone;
 
 import org.asname.audit.dao.RequestAuditsDAO;
-import org.asname.integration.contract.requests.mq.*;
-import org.asname.integration.mq.log.service.MQLogService;
 import org.asname.audit.model.AuditOperType;
-import org.asname.model.requests.Request;
-import org.asname.model.requests.RequestStatusType;
+import org.asname.audit.model.SystemType;
 import org.asname.audit.service.AuditService;
+import org.asname.integration.contract.requests.kafka.*;
 import org.asname.integration.utils.service.IntegrationService;
+import org.asname.model.requests.Request;
 import org.springframework.stereotype.Service;
 
-import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.UUID;
 import java.util.logging.Logger;
-
-import static org.asname.audit.model.SystemType.ASNAME2;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -24,9 +20,9 @@ public class RequestServiceImpl implements RequestService {
     private Logger logger = Logger.getLogger(RequestServiceImpl.class.getName());
 
     //C:\Users\NEO\.IntelliJIdea2019.3\system\tomcat
-    protected final static String pathSchema = "/Requests.xsd";
+    protected final static String pathSchema = "/Requests.json";
     @Override
-    public void createRequestRq(CreateRequestRqType req) throws IOException {
+    public void createRequestRq(CreateRequestRq req) throws IOException {
         Integer auditId = null;
         Integer requestId = null;
         try {
@@ -34,32 +30,36 @@ public class RequestServiceImpl implements RequestService {
 
                 auditId = new AuditService().create(
                         AuditOperType.MQ_IN_MESSAGE,
-                        ASNAME2.getId(),
+                        SystemType.ASNAME3.getId(),
                         new java.util.Date(),
                         String.format("Создание заявки\n" +
                                         "UID сообщения: %s \n" +
                                         "UID заявки: %s \n",
-                                req.getRqUID(),
+                                req.getHeader().getRqUID(),
                                 req.getCreateRequest().getRequestUUID()),
-                        req.getRqUID()
+                        req.getHeader().getRqUID()
                 );
 
-                CreateRequestRsType res = new CreateRequestRsType();
-                res.setCorrelationUID(req.getRqUID());
-                StatusType statusType = new StatusType();
+                CreateRequestRs res = new CreateRequestRs();
+                Header header = new Header();
+                header.setCorrelationUID(req.getHeader().getRqUID());
+                Status statusType = new Status();
                 statusType.setCode(0);
+                res.setHeader(header);
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().createRequestRs(res,null);
+                new org.asname.integration.kafka.kafkasend.RequestServiceImpl().createRequestRs(res,null);
 
             } catch (Exception e) {
 
-                CreateRequestRsType res = new CreateRequestRsType();
-                res.setCorrelationUID(req.getRqUID());
-                StatusType statusType = new StatusType();
+                CreateRequestRs res = new CreateRequestRs();
+                Header header = new Header();
+                header.setCorrelationUID(req.getHeader().getRqUID());
+                Status statusType = new Status();
                 statusType.setCode(-1);
                 statusType.setDescription(new IntegrationService().getExceptionString(e));
+                res.setHeader(header);
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().createRequestRs(res,e);
+                new org.asname.integration.kafka.kafkasend.RequestServiceImpl().createRequestRs(res,e);
 
                 throw new Exception(e);
             }
@@ -70,28 +70,30 @@ public class RequestServiceImpl implements RequestService {
             request.setCreateDateTime(new java.util.Date());
             request.setClientCode(req.getCreateRequest().getClientCode());
             request.setComment(req.getCreateRequest().getComment());
-            request.setLastUserAccountIdChangeRequestStatus(ASNAME2.getId());
-            request.setCreateSystemId(ASNAME2.getId());
+            request.setLastUserAccountIdChangeRequestStatus(SystemType.ASNAME3.getId());
+            request.setCreateSystemId(SystemType.ASNAME3.getId());
             requestId = new org.asname.service.requests.RequestService().create(request,
-                    ASNAME2.getId());
+                    SystemType.ASNAME3.getId());
 
             new RequestAuditsDAO().create(requestId, auditId);
 
         } catch (Exception e) {
             e.printStackTrace();
-            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
-            notify.setCorrelationUID(req.getRqUID());
-            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+            NotifyRequestStatusRq notify = new NotifyRequestStatusRq();
+            Header header = new Header();
+            header.setCorrelationUID(req.getHeader().getRqUID());
+            NotifyRequestStatusRequest notifyRequest = new NotifyRequestStatusRequest();
             notifyRequest.setRequestUUID(req.getCreateRequest().getRequestUUID());
-            notifyRequest.setStatus(RequestStatusType.ERROR.name());
+            notifyRequest.setStatus(NotifyRequestStatusRequest.Status.ERROR);
             notifyRequest.setComment(e.getMessage());
+            notify.setHeader(header);
             notify.setNotifyRequestStatusRequest(notifyRequest);
-            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,-1,e);
+            new org.asname.integration.kafka.kafkasend.RequestServiceImpl().notifyRequestStatusRq(notify,-1,e);
         }
     }
 
     @Override
-    public void cancelRequestRq(CancelRequestRqType req) throws IOException {
+    public void cancelRequestRq(CancelRequestRq req) throws IOException {
         Integer auditId = null;
         Integer requestId = null;
         try {
@@ -99,36 +101,36 @@ public class RequestServiceImpl implements RequestService {
 
                 auditId = new AuditService().create(
                         AuditOperType.MQ_IN_MESSAGE,
-                        ASNAME2.getId(),
+                        SystemType.ASNAME3.getId(),
                         new java.util.Date(),
                         String.format("Отмена заявки\n" +
                                         "UID сообщения: %s \n" +
                                         "UID заявки: %s \n",
-                                req.getRqUID(),
+                                req.getHeader().getRqUID(),
                                 req.getCancelRequest().getRequestUUID()),
-                        req.getRqUID()
+                        req.getHeader().getRqUID()
                 );
 
-                CancelRequestRsType res = new CancelRequestRsType();
-                res.setRqUID(UUID.randomUUID().toString());
-                res.setCorrelationUID(req.getRqUID());
-                res.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
-                StatusType statusType = new StatusType();
+                CancelRequestRs res = new CancelRequestRs();
+                Header header = new Header();
+                header.setCorrelationUID(req.getHeader().getRqUID());
+                Status statusType = new Status();
                 statusType.setCode(0);
+                res.setHeader(header);
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().cancelRequestRs(res,null);
+                new org.asname.integration.kafka.kafkasend.RequestServiceImpl().cancelRequestRs(res,null);
 
             } catch (Exception e) {
 
-                CancelRequestRsType res = new CancelRequestRsType();
-                res.setRqUID(UUID.randomUUID().toString());
-                res.setCorrelationUID(req.getRqUID());
-                res.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
-                StatusType statusType = new StatusType();
+                CancelRequestRs res = new CancelRequestRs();
+                Header header = new Header();
+                header.setCorrelationUID(req.getHeader().getRqUID());
+                Status statusType = new Status();
                 statusType.setCode(-1);
                 statusType.setDescription(new IntegrationService().getExceptionString(e));
+                res.setHeader(header);
                 res.setStatus(statusType);
-                new org.asname.integration.mq.send.mqone.RequestServiceImpl().cancelRequestRs(res,e);
+                new org.asname.integration.kafka.kafkasend.RequestServiceImpl().cancelRequestRs(res,e);
 
                 throw new Exception(e);
             }
@@ -138,23 +140,21 @@ public class RequestServiceImpl implements RequestService {
             if (requestId != null) new RequestAuditsDAO().create(requestId, auditId);
 
             new org.asname.service.requests.RequestService().cancel(req.getCancelRequest().getRequestUUID(),
-                    ASNAME2.getId(),
+                    SystemType.ASNAME3.getId(),
                     req.getCancelRequest().getComment());
 
         } catch (Exception e) {
             e.printStackTrace();
-            NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
-            notify.setCorrelationUID(req.getRqUID());
-            NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
+            NotifyRequestStatusRq notify = new NotifyRequestStatusRq();
+            Header header = new Header();
+            header.setCorrelationUID(req.getHeader().getRqUID());
+            NotifyRequestStatusRequest notifyRequest = new NotifyRequestStatusRequest();
             notifyRequest.setRequestUUID(req.getCancelRequest().getRequestUUID());
-            notifyRequest.setStatus(RequestStatusType.ERROR.name());
+            notifyRequest.setStatus(NotifyRequestStatusRequest.Status.ERROR);
             notifyRequest.setComment(e.getMessage());
+            notify.setHeader(header);
             notify.setNotifyRequestStatusRequest(notifyRequest);
-            new org.asname.integration.mq.send.mqone.RequestServiceImpl().notifyRequestStatusRq(notify,-1,e);
+            new org.asname.integration.kafka.kafkasend.RequestServiceImpl().notifyRequestStatusRq(notify,-1,e);
         }
-    }
-
-    @Override
-    public void notifyRequestStatusRs(NotifyRequestStatusRsType res) {
     }
 }

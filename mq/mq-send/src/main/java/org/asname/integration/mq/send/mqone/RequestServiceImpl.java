@@ -5,7 +5,7 @@ import org.asname.audit.model.AuditOperType;
 import org.asname.audit.service.AuditService;
 import org.asname.integration.contract.requests.mq.*;
 import org.asname.integration.mq.MessageConverter;
-import org.asname.integration.mq.send.JmsConfigASNAME1;
+import org.asname.integration.mq.send.JmsConfig;
 import org.asname.integration.mq.send.JmsSender;
 import org.asname.integration.utils.model.MethodType;
 import org.asname.integration.utils.service.IntegrationService;
@@ -24,40 +24,32 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void createRequestRs(CreateRequestRsType res, Exception exception) throws Exception {
+
+        res.setRqUID(UUID.randomUUID().toString());
+        res.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
+
         JmsSender jmsSender = new JmsSender();
         jmsSender.setDestination(AS1_OUT.getDescription());
-        jmsSender.setJmsTemplate(JmsConfigASNAME1.getJmsTemplate());
-//        try {
+        jmsSender.setJmsTemplate(JmsConfig.getJmsTemplate());
         jmsSender.sendMessage(res.getRqUID(), res.getCorrelationUID(),
                     new MessageConverter(new CreateRequestRsType(), pathSchema).marshal(res),
                     MethodType.CreateRequestRs,
                 exception);
-//        } catch (JAXBException e) {
-//            e.printStackTrace();
-//        } catch (SAXException e) {
-//            e.printStackTrace();
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
     public void cancelRequestRs(CancelRequestRsType res, Exception exception) throws Exception {
+
+        res.setRqUID(UUID.randomUUID().toString());
+        res.setRqTm(new IntegrationService().getXMLGregorianCalendar(new java.util.Date()));
+
         JmsSender jmsSender = new JmsSender();
         jmsSender.setDestination(AS1_OUT.getDescription());
-        jmsSender.setJmsTemplate(JmsConfigASNAME1.getJmsTemplate());
-//        try {
+        jmsSender.setJmsTemplate(JmsConfig.getJmsTemplate());
         jmsSender.sendMessage(res.getRqUID(), res.getCorrelationUID(),
                     new MessageConverter(new CancelRequestRsType(), pathSchema).marshal(res),
                     MethodType.CancelRequestRs,
                 exception);
-//        } catch (JAXBException e) {
-//            e.printStackTrace();
-//        } catch (SAXException e) {
-//            e.printStackTrace();
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
@@ -69,7 +61,7 @@ public class RequestServiceImpl implements RequestService {
 
             JmsSender jmsSender = new JmsSender();
             jmsSender.setDestination(AS1_REQUEST.getDescription());
-            jmsSender.setJmsTemplate(JmsConfigASNAME1.getJmsTemplate());
+            jmsSender.setJmsTemplate(JmsConfig.getJmsTemplate());
             jmsSender.sendMessage(req.getRqUID(), req.getCorrelationUID(),
                     new MessageConverter(new NotifyRequestStatusRqType(), pathSchema).marshal(req),
                     MethodType.NotifyRequestStatusRq,

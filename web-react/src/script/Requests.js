@@ -217,7 +217,7 @@ class RequestsGrid extends React.Component {
     let fields = {
         createDate:{
           name:'Дата заявки'
-          , width:85
+          , width:75
           , type:'date'
           , style:function(item) {
               return {textAlign:'center'}

@@ -8,6 +8,8 @@ import org.asname.dao.users.UserAccountDAO;
 import org.asname.db.connection.MySQLConnection;
 import org.asname.audit.model.Audit;
 import org.asname.audit.model.AuditOperType;
+import org.asname.integration.contract.requests.kafka.NotifyRequestStatusRequest;
+import org.asname.integration.contract.requests.kafka.NotifyRequestStatusRq;
 import org.asname.integration.contract.requests.mq.NotifyRequestStatusRequestType;
 import org.asname.integration.contract.requests.mq.NotifyRequestStatusRqType;
 import org.asname.integration.mq.send.mqone.RequestServiceImpl;
@@ -30,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import static org.asname.audit.model.SystemType.ASNAME2;
+import static org.asname.audit.model.SystemType.ASNAME3;
 import static org.asname.model.configure.Configures.CANCEL_REQUEST_INTERVAL;
 import static org.asname.model.security.Permissions.*;
 import static org.asname.model.requests.RequestStatusType.*;
@@ -215,6 +218,17 @@ public class RequestService {
             new RequestServiceImpl().notifyRequestStatusRq(notify, (existingRequest!=null) ? existingRequest.getId() : result,null);
         }
 
+        //Отправка нотификации при создании через Kafka системой-создателем
+        if ((request.getCreateSystemId() == ASNAME3.getId()) && (userAccountId == ASNAME3.getId())) {
+            NotifyRequestStatusRq notify = new NotifyRequestStatusRq();
+            NotifyRequestStatusRequest notifyRequest = new NotifyRequestStatusRequest();
+            notifyRequest.setRequestUUID(request.getRequestUUID());
+            notifyRequest.setStatus((existingRequest!=null) ? NotifyRequestStatusRequest.Status.valueOf(existingRequest.getRequestStatus().name()) : NotifyRequestStatusRequest.Status.valueOf(CREATED.toString()));
+            notifyRequest.setComment((existingRequest!=null) ? existingRequest.getCommentRequestStatus() : null);
+            notify.setNotifyRequestStatusRequest(notifyRequest);
+            new org.asname.integration.kafka.kafkasend.RequestServiceImpl().notifyRequestStatusRq(notify, (existingRequest!=null) ? existingRequest.getId() : result,null);
+        }
+
         return result;
     }
 
@@ -285,7 +299,7 @@ public class RequestService {
 
         Request existingRequest = getRequestByUUID(request.getRequestUUID());
 
-        //Отправка нотификации при отмене не системой-создателем
+        //Отправка нотификации через MQ при отмене не системой-создателем
         if (request.getCreateSystemId() == ASNAME2.getId()) {
             NotifyRequestStatusRqType notify = new NotifyRequestStatusRqType();
             NotifyRequestStatusRequestType notifyRequest = new NotifyRequestStatusRequestType();
@@ -294,6 +308,17 @@ public class RequestService {
             notifyRequest.setComment((existingRequest!=null) ? existingRequest.getCommentRequestStatus() : null);
             notify.setNotifyRequestStatusRequest(notifyRequest);
             new RequestServiceImpl().notifyRequestStatusRq(notify, request.getId(),null);
+        }
+
+        //Отправка нотификации через Kafka при отмене не системой-создателем
+        if (request.getCreateSystemId() == ASNAME3.getId()) {
+            NotifyRequestStatusRq notify = new NotifyRequestStatusRq();
+            NotifyRequestStatusRequest notifyRequest = new NotifyRequestStatusRequest();
+            notifyRequest.setRequestUUID(request.getRequestUUID());
+            notifyRequest.setStatus((existingRequest!=null) ? NotifyRequestStatusRequest.Status.valueOf(existingRequest.getRequestStatus().name()) : NotifyRequestStatusRequest.Status.valueOf(CREATED.toString()));
+            notifyRequest.setComment((existingRequest!=null) ? existingRequest.getCommentRequestStatus() : null);
+            notify.setNotifyRequestStatusRequest(notifyRequest);
+            new org.asname.integration.kafka.kafkasend.RequestServiceImpl().notifyRequestStatusRq(notify, request.getId(),null);
         }
 
         return result;
@@ -340,6 +365,19 @@ public class RequestService {
 
         conn.commit();
         conn.setAutoCommit(true);
+
+        Request existingRequest = getRequestByUUID(request.getRequestUUID());
+
+        //Отправка нотификации через Kafka при закрытии не системой-создателем
+        if (request.getCreateSystemId() == ASNAME3.getId()) {
+            NotifyRequestStatusRq notify = new NotifyRequestStatusRq();
+            NotifyRequestStatusRequest notifyRequest = new NotifyRequestStatusRequest();
+            notifyRequest.setRequestUUID(request.getRequestUUID());
+            notifyRequest.setStatus((existingRequest!=null) ? NotifyRequestStatusRequest.Status.valueOf(existingRequest.getRequestStatus().name()) : NotifyRequestStatusRequest.Status.valueOf(CREATED.toString()));
+            notifyRequest.setComment((existingRequest!=null) ? existingRequest.getCommentRequestStatus() : null);
+            notify.setNotifyRequestStatusRequest(notifyRequest);
+            new org.asname.integration.kafka.kafkasend.RequestServiceImpl().notifyRequestStatusRq(notify, request.getId(),null);
+        }
 
         return result;
     }

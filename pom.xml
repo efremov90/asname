@@ -25,7 +25,7 @@
         <module>audit</module>
         <module>db</module>
         <module>mvc</module>
-        <module>kafkaone</module>
+        <module>kafka</module>
     </modules>
 
     <dependencyManagement>

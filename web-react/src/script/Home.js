@@ -9,7 +9,8 @@ export class Home extends React.Component {
             <li>Servlet, MVC, SpringMVC</li>
             <li>JDBC, MySQL</li>
             <li>SOAP, SpringWS</li>
-            <li>MQ, SpringMQ, ActiveMQ</li>
+            <li>MQ, ActiveMQ, SpringMQ</li>
+            <li>Kafka, SpringKafka</li>
             <li>JasperReports, iReports</li>
         </ul>
         Включает следующие возможности:

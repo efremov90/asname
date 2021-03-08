@@ -40,7 +40,7 @@ export class ReportRequestsDetailed extends React.Component {
           <Error errorMessage={text_error}/>
         </Modal>)});
       console.log(`ReportRequestsDetailed handleComplete false`);
-    } return func({
+    } else func({
       reportRequestsDetailed: {
         fromCreateDate: this.state.generateReport.fromCreateDate
         , toCreateDate: this.state.generateReport.toCreateDate
